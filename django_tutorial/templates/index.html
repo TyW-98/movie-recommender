@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Django Basics</title>
+  </head>
+  <body>
+    <h1>Book Listings</h1>
+    <ul>
+      {% for book in bookList %}
+        {% if book.id == 1%}
+            <li><h3>{{book.title}}<h3></li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </body>
+</html>

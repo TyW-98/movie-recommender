@@ -37,6 +37,8 @@ class BookViewSet(viewsets.ModelViewSet):
             serializer = BookSerializer(instance)
             return Response(serializer.data)
 
+    
+    
 
 def basic_view(request):
     return HttpResponse('Basic View')
