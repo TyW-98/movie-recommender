@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Book
+from .models import Book, BookUniqueNumber
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
@@ -10,3 +10,8 @@ class BookAdmin(admin.ModelAdmin):
     list_display = ['title', 'price', 'stock']
     list_filter = ['published_date', 'price']
     search_fields = ['title']
+    
+@admin.register(BookUniqueNumber)
+class BookUniqueNumberAdmin(admin.ModelAdmin):
+    
+    list_display = ["ISBN_10", "ISBN_13"]
