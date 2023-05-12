@@ -23,3 +23,7 @@ class Book(models.Model):
     def __str__(self):
         return self.title + "-" + str(self.id)
     
+class Character(models.Model):
+    
+    name = models.CharField(max_length = 100, blank=True)
+    book = models.ForeignKey(Book, blank=True, on_delete=models.SET_NULL, null=True, related_name='characters')
