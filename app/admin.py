@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Book, BookUniqueNumber, Character
+from .models import Book, BookUniqueNumber, Character, Author
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
@@ -17,7 +17,11 @@ class BookUniqueNumberAdmin(admin.ModelAdmin):
     list_display = ["ISBN_10", "ISBN_13"]
     
 @admin.register(Character)
-
 class CharactersAdmin(admin.ModelAdmin):
+    
+    list_display = ["name"]
+    
+@admin.register(Author)
+class AuthorAdmin(admin.ModelAdmin):
     
     list_display = ["name"]
