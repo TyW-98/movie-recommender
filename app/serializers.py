@@ -27,3 +27,9 @@ class BookSerializer(serializers.ModelSerializer):
         model = Book
         fields = ['id', 'title', 'published_date', 'price', 'stock', 'uniqueNumber', 'characters', 'authors']
         
+class BookMiniSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Book
+        fields = ['id', 'title']
+        
