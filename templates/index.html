@@ -10,7 +10,9 @@
     <h1>Book Listings</h1>
     <ul>
       {% for book in bookList %}
-      <li>{{book.title}}</li>
+        {% if book.id == 1%}
+            <li><h3>{{book.title}}<h3></li>
+        {% endif %}
       {% endfor %}
     </ul>
   </body>

@@ -12,3 +12,6 @@ class Book(models.Model):
     stock = models.IntegerField(default=0)
     date_added = models.DateField(auto_now_add=True, null=True)
     images = models.ImageField(upload_to="images/", blank=True)
+    
+    def __str__(self):
+        return self.title + "-" + str(self.id)
