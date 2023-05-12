@@ -5,7 +5,7 @@
 __pycache__/
 *.sqlite3
 *.env
-django_tutorial/main/config.py
+config.py
 
 # IDE-specific files
 .vscode/
