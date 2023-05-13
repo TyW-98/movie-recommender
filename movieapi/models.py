@@ -5,43 +5,31 @@ from django_countries.fields import CountryField
 from datetime import date
 
 # Create your models here.
-class Director(models.Model):
-    
-    name = models.CharField(max_length=32, blank = False)
-    dob = models.DateField(validators = [MaxValueValidator(date.today().year)])
-    
-    @property
-    def calculateAge(self):
-        today = date.today()
-        age = today.year - self.dob.year
-        
-        return age
 class Movie(models.Model):
     
     title = models.CharField(max_length=32, blank=False)
     genre = models.CharField(max_length=32, blank=False)    
     language = models.CharField(max_length=32, blank=False)
     release_year = models.IntegerField(blank=False)
+    published_date = models.DateField(validators= [MaxValueValidator(date.today())], default=date.today())
     metascore = models.IntegerField(validators = [MinValueValidator(0), MaxValueValidator(100)], blank = False)
     duration = models.BigIntegerField(blank = False)
-    director = models.ForeignKey(Director, on_delete=models.PROTECT, related_name='director')
-    actorList = models.ManyToManyField('Actor', related_name='movies')
     
     class Meta:
         verbose_name_plural = 'Movies'
+        
+class Director(models.Model):
+    
+    name = models.CharField(max_length=32)
+    dob = models.DateField(validators = [MaxValueValidator(date.today())])
+    movie = models.ForeignKey(Movie, on_delete=models.PROTECT, related_name='movie', null=True)
     
 class Actor(models.Model):
     
     name = models.CharField(max_length=32, blank = False)
-    dob = models.DateField(validators = [MaxValueValidator(date.today().year)])
-    moviesList = models.ManyToManyField('Movie', related_name='actors')
-    
-    @property
-    def calculateAge(self):
-        today = date.today()
-        age = today.year - self.dob.year
-        
-        return age
+    dob = models.DateField(validators = [MaxValueValidator(date.today())])
+    movies = models.ManyToManyField(Movie)
+
 class CustomUserManager(BaseUserManager):
     
     def create_user(self, username, email, password, **other_fields):

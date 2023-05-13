@@ -7,7 +7,7 @@ from .models import CustomUser, Movie, Actor, Director
 class CustomUserAdmin(UserAdmin):
     
     ordering = ('-last_login',)
-    list_display = ['username', 'email', 'country', 'date_joined' ,'last_login', 'is_active', 'is_staff']
+    list_display = ['id','username', 'email', 'country', 'date_joined' ,'last_login', 'is_active', 'is_staff']
     search_fields = ('username', 'email')
     list_filter = ('country','last_login')
     fieldsets = (
@@ -21,11 +21,19 @@ class CustomUserAdmin(UserAdmin):
         ),
     )
     
-# @admin.register(Movie)
-# class MovieAdmin(admin.ModelAdmin):
+@admin.register(Movie)
+class MovieAdmin(admin.ModelAdmin):
     
-# @admin.register(Director)
-# class DirectorAdmin(admin.ModelAdmin): 
+    ordering = ('-published_date',)
+    list_diplay = ['id', 'title', 'genre', 'language', 'published_date', 'metascore', 'duration']
+
+@admin.register(Director)
+class DirectorAdmin(admin.ModelAdmin): 
     
-# @admin.register(Actor)
-# class ActorAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name', 'dob']
+    search_fields = ('name',)
+    
+@admin.register(Actor)
+class ActorAdmin(admin.ModelAdmin):
+    
+    list_display = ["name",]
