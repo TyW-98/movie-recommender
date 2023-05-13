@@ -25,7 +25,9 @@ class CustomUserAdmin(UserAdmin):
 class MovieAdmin(admin.ModelAdmin):
     
     ordering = ('-published_date',)
-    list_diplay = ['id', 'title', 'genre', 'language', 'published_date', 'metascore', 'duration']
+    list_display = ['id', 'title', 'genre', 'language', 'published_date', 'metascore', 'duration']
+    search_fields = ('title',)
+    list_filter = ('genre', 'language', 'published_date', 'metascore')
 
 @admin.register(Director)
 class DirectorAdmin(admin.ModelAdmin): 
@@ -36,4 +38,5 @@ class DirectorAdmin(admin.ModelAdmin):
 @admin.register(Actor)
 class ActorAdmin(admin.ModelAdmin):
     
-    list_display = ["name",]
+    list_display = ['id', 'name', 'dob']
+    search_fields = ('name',)  
