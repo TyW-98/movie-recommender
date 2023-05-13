@@ -6,15 +6,19 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('movieapi', '0001_initial'),
+        ("movieapi", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='movie',
-            name='published_date',
-            field=models.DateField(default=datetime.date(2023, 5, 13), validators=[django.core.validators.MaxValueValidator(datetime.date.today)]),
+            model_name="movie",
+            name="published_date",
+            field=models.DateField(
+                default=datetime.date(2023, 5, 13),
+                validators=[
+                    django.core.validators.MaxValueValidator(datetime.date.today)
+                ],
+            ),
         ),
     ]

@@ -6,20 +6,24 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('movieapi', '0005_alter_movie_director'),
+        ("movieapi", "0005_alter_movie_director"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='movie',
-            old_name='director',
-            new_name='directed_by',
+            model_name="movie",
+            old_name="director",
+            new_name="directed_by",
         ),
         migrations.AlterField(
-            model_name='movie',
-            name='published_date',
-            field=models.DateField(default=datetime.date(2023, 5, 13), validators=[django.core.validators.MaxValueValidator(datetime.date(2023, 5, 13))]),
+            model_name="movie",
+            name="published_date",
+            field=models.DateField(
+                default=datetime.date(2023, 5, 13),
+                validators=[
+                    django.core.validators.MaxValueValidator(datetime.date(2023, 5, 13))
+                ],
+            ),
         ),
     ]

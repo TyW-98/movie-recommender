@@ -4,15 +4,16 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('app', '0003_remove_book_year_book_date_added_book_description_and_more'),
+        ("app", "0003_remove_book_year_book_date_added_book_description_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='book',
-            name='id',
-            field=models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID'),
+            model_name="book",
+            name="id",
+            field=models.BigAutoField(
+                auto_created=True, primary_key=True, serialize=False, verbose_name="ID"
+            ),
         ),
     ]

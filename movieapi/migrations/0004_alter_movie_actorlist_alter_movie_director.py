@@ -5,20 +5,23 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('movieapi', '0003_alter_movie_actorlist_alter_movie_director'),
+        ("movieapi", "0003_alter_movie_actorlist_alter_movie_director"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='movie',
-            name='actorList',
-            field=models.ManyToManyField(related_name='movies', to='movieapi.actor'),
+            model_name="movie",
+            name="actorList",
+            field=models.ManyToManyField(related_name="movies", to="movieapi.actor"),
         ),
         migrations.AlterField(
-            model_name='movie',
-            name='director',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='director', to='movieapi.director'),
+            model_name="movie",
+            name="director",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="director",
+                to="movieapi.director",
+            ),
         ),
     ]

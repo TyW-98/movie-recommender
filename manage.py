@@ -3,10 +3,20 @@
 import os
 import sys
 
+from movierecommender.settings import base
+
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'movierecommender.settings')
+
+    if base.DEBUG:
+        os.environ.setdefault(
+            "DJANGO_SETTINGS_MODULE", "movierecommender.settings.local"
+        )
+    else:
+        os.environ.setdefault(
+            "DJANGO_SETTINGS_MODULE", "movierecommender.settings.production"
+        )
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
@@ -18,5 +28,5 @@ def main():
     execute_from_command_line(sys.argv)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
