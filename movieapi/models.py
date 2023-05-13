@@ -81,8 +81,8 @@ class CustomUser(AbstractUser, PermissionsMixin):
     age = models.IntegerField(validators =[MinValueValidator(0), MaxValueValidator(150)], default=0)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True)
     country = CountryField(blank=True)
-    is_staff = models.BooleanField(default=False, editable=False)
-    is_superuser = models.BooleanField(default=False, editable=False)
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
     
     objects = CustomUserManager()
     
@@ -90,8 +90,7 @@ class CustomUser(AbstractUser, PermissionsMixin):
      
     class Meta: 
         unique_together = (('username', 'email'))
-    
-     
+        
 class RatedMovies(models.Model):
     
     movie = models.ForeignKey(Movie, blank=False, on_delete=models.CASCADE)
