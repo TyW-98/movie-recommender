@@ -73,7 +73,6 @@ class RatedMovieMiniSerializer(serializers.ModelSerializer):
 
 
 class CustomUserMiniSerializer(serializers.ModelSerializer):
-    
     class Meta:
         model = CustomUser
         fields = ["id", "username", "country"]

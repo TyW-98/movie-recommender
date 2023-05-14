@@ -120,4 +120,4 @@ class RatedMovies(models.Model):
         index_together = ("user", "movie")
 
     def __str__(self):
-        return self.movie + f"({self.user.id})"
+        return str(self.movie.title) + f"({self.user.id})"
