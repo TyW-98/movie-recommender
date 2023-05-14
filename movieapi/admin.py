@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import CustomUser, Movie, Actor, Director
+
+from .models import Actor, CustomUser, Director, Movie, RatedMovies
 
 
 # Register your models here.
@@ -83,3 +84,9 @@ class DirectorAdmin(admin.ModelAdmin):
 class ActorAdmin(admin.ModelAdmin):
     list_display = ["id", "name", "dob"]
     search_fields = ("name",)
+
+
+@admin.register(RatedMovies)
+class RatedMoviesAdmin(admin.ModelAdmin):
+    list_display = ["id", "user"]
+    search_fields = ("user",)
