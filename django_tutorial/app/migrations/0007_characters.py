@@ -5,18 +5,33 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('app', '0006_alter_bookuniquenumber_isbn_10_and_more'),
+        ("app", "0006_alter_bookuniquenumber_isbn_10_and_more"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Characters',
+            name="Characters",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('character_name', models.CharField(blank=True, max_length=100)),
-                ('book', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='app.book')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("character_name", models.CharField(blank=True, max_length=100)),
+                (
+                    "book",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="app.book",
+                    ),
+                ),
             ],
         ),
     ]
