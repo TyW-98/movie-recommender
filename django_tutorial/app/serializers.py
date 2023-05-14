@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import Book, BookUniqueNumber, Character, Author
+
+from .models import Author, Book, BookUniqueNumber, Character
 
 
 class BookUniqueNumberSerializer(serializers.ModelSerializer):

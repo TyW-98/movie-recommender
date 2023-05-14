@@ -20,7 +20,7 @@ class DirectorSerializer(serializers.Serializer):
 
     class Meta:
         model = Director
-        fields = ["id", "name", "movies"]
+        fields = ["name", "movies"]
 
 
 class ActorMiniSerializer(serializers.Serializer):
