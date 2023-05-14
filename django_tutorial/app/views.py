@@ -1,12 +1,13 @@
-from django.shortcuts import render
 from django.http import HttpResponse
+from django.shortcuts import render
 from django.views import View
 from rest_framework import viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+
 from .models import Book
-from .serializers import BookSerializer, BookMiniSerializer
+from .serializers import BookMiniSerializer, BookSerializer
 
 
 # Create your views here.

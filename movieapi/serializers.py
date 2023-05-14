@@ -9,6 +9,12 @@ class MovieMiniSerializer(serializers.ModelSerializer):
         fields = ["id", "title", "genre", "language", "published_date"]
 
 
+class MovieMiniMiniSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Movie
+        fields = ["id", "title"]
+
+
 class DirectorMiniSerializer(serializers.ModelSerializer):
     class Meta:
         model = Director
@@ -16,7 +22,7 @@ class DirectorMiniSerializer(serializers.ModelSerializer):
 
 
 class DirectorSerializer(serializers.ModelSerializer):
-    movies = MovieMiniSerializer(many=True)
+    movies = MovieMiniMiniSerializer(many=True)
 
     class Meta:
         model = Director
@@ -30,7 +36,7 @@ class ActorMiniSerializer(serializers.ModelSerializer):
 
 
 class ActorSerializer(serializers.ModelSerializer):
-    movies = MovieMiniSerializer(many=True)
+    movies = MovieMiniMiniSerializer(many=True)
 
     class Meta:
         model = Actor
@@ -63,7 +69,7 @@ class MovieSerializer(serializers.ModelSerializer):
 class RatedMovieMiniSerializer(serializers.ModelSerializer):
     class Meta:
         model = RatedMovies
-        fields = ["id", "movie", "userRating"]
+        fields = ["id", "user", "movie", "userRating"]
 
 
 class CustomUserMiniSerializer(serializers.ModelSerializer):
