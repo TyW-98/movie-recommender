@@ -9,28 +9,48 @@ from django_countries.fields import CountryField
 # Create your models here.
 class Actor(models.Model):
     name = models.CharField(max_length=32, blank=False)
-    dob = models.DateField(validators=[MaxValueValidator(date.today())])
-    
+    dob = models.DateField(
+        validators=[MaxValueValidator(date.today())], default=date.today()
+    )
+
+    def __str__(self):
+        return self.name
+
+
 class Director(models.Model):
     name = models.CharField(max_length=32)
-    dob = models.DateField(validators=[MaxValueValidator(date.today())])
+    dob = models.DateField(
+        validators=[MaxValueValidator(date.today())], default=date.today()
+    )
+
+    def __str__(self):
+        return self.name
+
 
 class Movie(models.Model):
     title = models.CharField(max_length=32, blank=False)
     genre = models.CharField(max_length=32, blank=False)
     language = models.CharField(max_length=32, blank=False)
-    release_year = models.IntegerField(blank=False)
     published_date = models.DateField(
         validators=[MaxValueValidator(date.today())], default=date.today()
     )
     metascore = models.IntegerField(
-        validators=[MinValueValidator(0), MaxValueValidator(100)], blank=False
+        validators=[MinValueValidator(0), MaxValueValidator(100)],
+        blank=False,
+        default=0,
     )
-    duration = models.BigIntegerField(blank=False)
-    actors = models.ManyToManyField(Actor, related_name='movies')
-    director = models.ForeignKey(Director, on_delete=models.CASCADE, null=True, related_name='movies')
+    duration = models.IntegerField(null=True)
+    actors = models.ManyToManyField(Actor, related_name="movies")
+    director = models.ForeignKey(
+        Director, on_delete=models.CASCADE, null=True, related_name="movies"
+    )
+
     class Meta:
         verbose_name_plural = "Movies"
+
+    def __str__(self):
+        return self.title + f"({self.id})"
+
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, username, email, password, **other_fields):
@@ -82,6 +102,9 @@ class CustomUser(AbstractUser, PermissionsMixin):
     class Meta:
         unique_together = ("username", "email")
 
+    def __str__(self):
+        return self.username + f"({self.id})"
+
 
 class RatedMovies(models.Model):
     movie = models.ForeignKey(Movie, blank=False, on_delete=models.CASCADE)
@@ -95,3 +118,6 @@ class RatedMovies(models.Model):
     class Meta:
         unique_together = ("user", "movie")
         index_together = ("user", "movie")
+
+    def __str__(self):
+        return self.movie + f"({self.user.id})"

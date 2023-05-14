@@ -3,19 +3,19 @@ from rest_framework import serializers
 from .models import Actor, CustomUser, Director, Movie, RatedMovies
 
 
-class MovieMiniSerializer(serializers.Serializer):
+class MovieMiniSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
         fields = ["id", "title", "genre", "language", "published_date"]
 
 
-class DirectorMiniSerializer(serializers.Serializer):
+class DirectorMiniSerializer(serializers.ModelSerializer):
     class Meta:
         model = Director
         fields = ["id", "name"]
 
 
-class DirectorSerializer(serializers.Serializer):
+class DirectorSerializer(serializers.ModelSerializer):
     movies = MovieMiniSerializer(many=True)
 
     class Meta:
@@ -23,13 +23,13 @@ class DirectorSerializer(serializers.Serializer):
         fields = ["name", "movies"]
 
 
-class ActorMiniSerializer(serializers.Serializer):
+class ActorMiniSerializer(serializers.ModelSerializer):
     class Meta:
         model = Actor
         fields = ["id", "name"]
 
 
-class ActorSerializer(serializers.Serializer):
+class ActorSerializer(serializers.ModelSerializer):
     movies = MovieMiniSerializer(many=True)
 
     class Meta:
@@ -41,9 +41,9 @@ class ActorSerializer(serializers.Serializer):
         ]
 
 
-class MovieSerializer(serializers.Serializer):
+class MovieSerializer(serializers.ModelSerializer):
     director = DirectorMiniSerializer(many=False)
-    actor = ActorSerializer(many=True)
+    actors = ActorMiniSerializer(many=True)
 
     class Meta:
         model = Movie
@@ -56,22 +56,22 @@ class MovieSerializer(serializers.Serializer):
             "metascore",
             "duration",
             "director",
-            "actor",
+            "actors",
         ]
 
 
-class RatedMovieMiniSerializer(serializers.Serializer):
+class RatedMovieMiniSerializer(serializers.ModelSerializer):
     class Meta:
         model = RatedMovies
         fields = ["id", "movie", "userRating"]
 
 
-class CustomUserMiniSerializer(serializers.Serializer):
+class CustomUserMiniSerializer(serializers.ModelSerializer):
     model = CustomUser
     fields = ["id", "username", "country"]
 
 
-class CustomUserSerializer(serializers.Serializer):
+class CustomUserSerializer(serializers.ModelSerializer):
     user_rated_movies = RatedMovieMiniSerializer(many=False)
 
     class Meta:

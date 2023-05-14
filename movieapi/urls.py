@@ -12,10 +12,10 @@ from .views import (
 )
 
 router = routers.DefaultRouter()
-router.register('movies', MovieViewSet)
-router.register('actors', ActorViewSet)
-router.register('directors', DirectorViewSet)
+router.register("movies", MovieViewSet)
+router.register("actors", ActorViewSet)
+router.register("directors", DirectorViewSet)
 router.register("users", CustomUserViewSet)
 router.register("ratings", RatedMoviesViewSet)
-    
+
 urlpatterns = [path("", include(router.urls))]
