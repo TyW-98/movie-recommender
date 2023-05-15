@@ -45,9 +45,6 @@ class Movie(models.Model):
         Director, on_delete=models.CASCADE, null=True, related_name="movies"
     )
 
-    class Meta:
-        verbose_name_plural = "Movies"
-
     def __str__(self):
         return self.title + f"({self.id})"
 
@@ -111,7 +108,7 @@ class RatedMovies(models.Model):
     user = models.ForeignKey(
         CustomUser, blank=False, on_delete=models.CASCADE, related_name="ratedmovies"
     )
-    userRating = models.IntegerField(
+    user_rating = models.IntegerField(
         validators=[MinValueValidator(0), MaxValueValidator(10)], blank=False
     )
 

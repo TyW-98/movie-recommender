@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from rest_framework import viewsets
+from rest_framework import status, viewsets
 from rest_framework.authentication import TokenAuthentication
+from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
@@ -27,6 +28,38 @@ class MovieViewSet(viewsets.ModelViewSet):
         instance = self.get_object()
         serializer = MovieSerializer(instance)
         return Response(serializer.data)
+
+    @action(detail=True, methods=["POST"])
+    def rate_movie(self, request, pk=None):
+        if "rating" in request.data:
+            movie = Movie.objects.get(id=pk)
+            rating = request.data["rating"]
+            user = CustomUser.objects.get(id=1)
+
+            try:
+                user_rating = RatedMovies.objects.get(user=user.id, movie=movie.id)
+                user_rating.user_rating = rating
+                user_rating.save()
+                serializer = RatedMovieMiniSerializer(user_rating)
+                response = {
+                    "Message": "Movie rating updated",
+                    "output": serializer.data,
+                }
+                return Response(response, status=status.HTTP_200_OK)
+            except:
+                user_rating = RatedMovies.objects.create(
+                    user=user, movie=movie, user_rating=rating
+                )
+                serailizer = RatedMovieMiniSerializer(user_rating)
+                response = {
+                    "Message": "Movie rating created",
+                    "output": serailizer.data,
+                }
+                return Response(response, status=status.HTTP_201_CREATED)
+
+        else:
+            response = {"Message": "Please include your rating"}
+            return Response(response, status=status.HTTP_400_BAD_REQUEST)
 
 
 class DirectorViewSet(viewsets.ModelViewSet):
