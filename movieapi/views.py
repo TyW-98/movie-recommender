@@ -84,7 +84,7 @@ class MovieViewSet(BaseModelViewSet):
                     "output": serializer.data,
                 }
                 return Response(response, status=status.HTTP_200_OK)
-            except:
+            except RatedMovies.DoesNotExist:
                 user_rating = RatedMovies.objects.create(
                     user=user, movie=movie, user_rating=rating
                 )
@@ -113,19 +113,42 @@ class ActorViewSet(BaseModelViewSet):
 class RatedMoviesViewSet(BaseModelViewSet):
     serializer_class = RatedMovieMiniSerializer
     queryset = RatedMovies.objects.all()
+    permission_classes = [IsAdminUser]
+
 
 class CustomUserViewSet(viewsets.ModelViewSet):
     serializer_class = CustomUserMiniSerializer
     queryset = CustomUser.objects.all()
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAdminUser,)
-    
+
     def get_permissions(self):
-        if self.action == 'create':
-            permission_classes = [AllowAny]
-        else:
-            permission_classes = [IsAdminUser]
+        permission_classes = (
+            [AllowAny]
+            if self.action == "create" or self.action == "user_rated_movies"
+            else [IsAdminUser]
+        )
         return [permission() for permission in permission_classes]
 
+    def retrieve(self, request, *args, **kwargs):
+        if request.user.is_staff:
+            instance = self.get_object()
+            serializer = CustomUserSerializer(instance)
+            return Response(serializer.data)
 
-# TODO: Add more restrictions
+    @action(
+        detail=False,
+        methods=["GET"],
+        permission_classes=[
+            IsAuthenticated,
+        ],
+    )
+    def user_rated_movies(self, request):
+        user = request.user.id
+        user_data = RatedMovies.objects.filter(user=user)
+        serializer = RatedMovieMiniSerializer(user_data, many=True)
+        response = {
+            "message": "Rated movies for the user",
+            "output": serializer.data,
+        }
+        return Response(response, status=status.HTTP_200_OK)
