@@ -69,7 +69,7 @@ class MovieSerializer(serializers.ModelSerializer):
 class RatedMovieMiniSerializer(serializers.ModelSerializer):
     class Meta:
         model = RatedMovies
-        fields = ["id", "user", "movie", "userRating"]
+        fields = ["id", "user", "movie", "user_rating"]
 
 
 class CustomUserMiniSerializer(serializers.ModelSerializer):
