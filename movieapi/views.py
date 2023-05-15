@@ -21,44 +21,47 @@ from .serializers import (
 
 # Create your views here.
 class BaseModelViewSet(viewsets.ModelViewSet):
-    authentication_classes = (TokenAuthentication, )
-    permission_classes = (IsAuthenticated, )
-    
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
     serializer_classes = {
-        'movie': MovieSerializer,
-        'director': DirectorSerializer,
-        'actor': ActorSerializer,
-        'customuser': CustomUserSerializer,
-        'ratedmovie': RatedMovieMiniSerializer
+        "movie": MovieSerializer,
+        "director": DirectorSerializer,
+        "actor": ActorSerializer,
+        "customuser": CustomUserSerializer,
+        "ratedmovie": RatedMovieMiniSerializer,
     }
-    
+
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
         model_class = instance.__class__.__name__.lower()
-        serializer_class = self.serializer_classes.get(model_class, self.serializer_class)
+        serializer_class = self.serializer_classes.get(
+            model_class, self.serializer_class
+        )
         serializer = serializer_class(instance)
-        return Response(serializer.data) 
-    
-    def create(self,request, *args, **kwargs):
+        return Response(serializer.data)
+
+    def create(self, request, *args, **kwargs):
         if not request.user.is_staff:
             response = {"message": "You do not have permission for this method"}
             return Response(response, status=status.HTTP_401_UNAUTHORIZED)
-    
+
         return super().create(request, *args, **kwargs)
-    
-    def update(self,request, *args, **kwargs):
+
+    def update(self, request, *args, **kwargs):
         if not request.user.is_staff:
             response = {"message": "You do not have permission for this method"}
-            return Response(response, status=status.HTTP_401_UNAUTHORIZED) 
-        
+            return Response(response, status=status.HTTP_401_UNAUTHORIZED)
+
         return super().update(request, *args, **kwargs)
-    
+
     def destroy(self, request, *args, **kwargs):
         if not request.user.is_staff:
             response = {"message": "You do not have permission for this method"}
             return Response(response, status=status.HTTP_401_UNAUTHORIZED)
-        
+
         return super().create(request, *args, **kwargs)
+
 
 class MovieViewSet(BaseModelViewSet):
     serializer_class = MovieMiniSerializer
@@ -96,6 +99,7 @@ class MovieViewSet(BaseModelViewSet):
             response = {"Message": "Please include your rating"}
             return Response(response, status=status.HTTP_400_BAD_REQUEST)
 
+
 class DirectorViewSet(BaseModelViewSet):
     serializer_class = DirectorMiniSerializer
     queryset = Director.objects.all()
@@ -131,5 +135,6 @@ class CustomUserViewSet(viewsets.ModelViewSet):
 class RatedMoviesViewSet(viewsets.ModelViewSet):
     serializer_class = RatedMovieMiniSerializer
     queryset = RatedMovies.objects.all()
+
 
 # TODO: Add more restrictions
