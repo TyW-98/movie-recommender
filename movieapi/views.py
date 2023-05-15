@@ -62,6 +62,27 @@ class MovieViewSet(viewsets.ModelViewSet):
         else:
             response = {"Message": "Please include your rating"}
             return Response(response, status=status.HTTP_400_BAD_REQUEST)
+        
+    def create(self,request, *args, **kwargs):
+        if not request.user.is_staff:
+            response = {"message": "You do not have permission for this method"}
+            return Response(response, status=status.HTTP_401_UNAUTHORIZED)
+        
+        return super().create(request, *args, **kwargs)
+    
+    def update(self,request, *args, **kwargs):
+        if not request.user.is_staff:
+            response = {"message": "You do not have permission for this method"}
+            return Response(response, status=status.HTTP_401_UNAUTHORIZED) 
+        
+        return super().update(request, *args, **kwargs)
+    
+    def destroy(self, request, *args, **kwargs):
+        if not request.user.is_staff:
+            response = {"message": "You do not have permission for this method"}
+            return Response(response, status=status.HTTP_401_UNAUTHORIZED)
+        
+        return super().create(request, *args, **kwargs)
 
 
 class DirectorViewSet(viewsets.ModelViewSet):
@@ -99,3 +120,5 @@ class CustomUserViewSet(viewsets.ModelViewSet):
 class RatedMoviesViewSet(viewsets.ModelViewSet):
     serializer_class = RatedMovieMiniSerializer
     queryset = RatedMovies.objects.all()
+
+# TODO: Add more restrictions

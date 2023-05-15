@@ -1,5 +1,6 @@
 from django.contrib.auth.hashers import make_password
 from rest_framework import serializers
+from rest_framework.authtoken.models import Token
 
 from .models import Actor, CustomUser, Director, Movie, RatedMovies
 
@@ -89,6 +90,7 @@ class CustomUserMiniSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         validated_data["password"] = make_password(validated_data["password"]) 
         user = CustomUser.objects.create(**validated_data)
+        Token.objects.create(user=user)
         return user
     
     def update(self, instance, validated_data):
