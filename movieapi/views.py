@@ -23,8 +23,8 @@ from .serializers import (
 class MovieViewSet(viewsets.ModelViewSet):
     serializer_class = MovieMiniSerializer
     queryset = Movie.objects.all()
-    authentication_classes = (TokenAuthentication, )
-    permission_classes = (IsAuthenticated, )
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -87,8 +87,8 @@ class ActorViewSet(viewsets.ModelViewSet):
 class CustomUserViewSet(viewsets.ModelViewSet):
     serializer_class = CustomUserMiniSerializer
     queryset = CustomUser.objects.all()
-    authentication_classes = (TokenAuthentication, )
-    permission_classes = (IsAdminUser, )
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
