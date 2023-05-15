@@ -67,7 +67,7 @@ class MovieAdmin(admin.ModelAdmin):
         "genre",
         "language",
         "published_date",
-        "metascore",
+        "average_rating",
         "duration",
     ]
     search_fields = ("title",)

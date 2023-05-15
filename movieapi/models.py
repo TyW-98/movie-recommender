@@ -47,7 +47,17 @@ class Movie(models.Model):
 
     def __str__(self):
         return self.title + f"({self.id})"
-
+    
+    def average_rating(self):
+        ratings = RatedMovies.objects.filter(movie=self)
+        total_rating = sum(rating.user_rating for rating in ratings)
+        
+        if len(ratings) > 0:
+            average_rating = total_rating / len(ratings)
+        else:
+            average_rating = "Not Rated"
+        
+        return average_rating
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, username, email, password, **other_fields):

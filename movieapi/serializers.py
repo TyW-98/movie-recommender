@@ -6,7 +6,7 @@ from .models import Actor, CustomUser, Director, Movie, RatedMovies
 class MovieMiniSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
-        fields = ["id", "title", "genre", "language", "published_date"]
+        fields = ["id", "title", "genre", "language", "published_date", "average_rating"]
 
 
 class MovieMiniMiniSerializer(serializers.ModelSerializer):
@@ -60,6 +60,7 @@ class MovieSerializer(serializers.ModelSerializer):
             "language",
             "published_date",
             "metascore",
+            "average_rating",
             "duration",
             "director",
             "actors",
