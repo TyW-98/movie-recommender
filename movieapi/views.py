@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import status, viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import action
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 
 from .models import Actor, CustomUser, Director, Movie, RatedMovies
@@ -23,6 +23,8 @@ from .serializers import (
 class MovieViewSet(viewsets.ModelViewSet):
     serializer_class = MovieMiniSerializer
     queryset = Movie.objects.all()
+    authentication_classes = (TokenAuthentication, )
+    permission_classes = (IsAuthenticated, )
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -34,7 +36,7 @@ class MovieViewSet(viewsets.ModelViewSet):
         if "rating" in request.data:
             movie = Movie.objects.get(id=pk)
             rating = request.data["rating"]
-            user = CustomUser.objects.get(id=1)
+            user = request.user
 
             try:
                 user_rating = RatedMovies.objects.get(user=user.id, movie=movie.id)
@@ -85,6 +87,8 @@ class ActorViewSet(viewsets.ModelViewSet):
 class CustomUserViewSet(viewsets.ModelViewSet):
     serializer_class = CustomUserMiniSerializer
     queryset = CustomUser.objects.all()
+    authentication_classes = (TokenAuthentication, )
+    permission_classes = (IsAdminUser, )
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()

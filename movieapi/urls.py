@@ -19,4 +19,3 @@ router.register("users", CustomUserViewSet)
 router.register("ratings", RatedMoviesViewSet)
 
 urlpatterns = [path("", include(router.urls))]
-
