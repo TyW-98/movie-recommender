@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import status, viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import action
-from rest_framework.permissions import IsAdminUser, IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 
 from .models import Actor, CustomUser, Director, Movie, RatedMovies
@@ -104,37 +104,28 @@ class DirectorViewSet(BaseModelViewSet):
     serializer_class = DirectorMiniSerializer
     queryset = Director.objects.all()
 
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-        serializer = DirectorSerializer(instance)
-        return Response(serializer.data)
-
 
 class ActorViewSet(BaseModelViewSet):
     serializer_class = ActorMiniSerializer
     queryset = Actor.objects.all()
 
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-        serializer = ActorSerializer(instance)
-        return Response(serializer.data)
 
+class RatedMoviesViewSet(BaseModelViewSet):
+    serializer_class = RatedMovieMiniSerializer
+    queryset = RatedMovies.objects.all()
 
 class CustomUserViewSet(viewsets.ModelViewSet):
     serializer_class = CustomUserMiniSerializer
     queryset = CustomUser.objects.all()
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
-
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-        serializer = CustomUserSerializer(instance)
-        return Response(serializer.data)
-
-
-class RatedMoviesViewSet(viewsets.ModelViewSet):
-    serializer_class = RatedMovieMiniSerializer
-    queryset = RatedMovies.objects.all()
+    permission_classes = (IsAdminUser,)
+    
+    def get_permissions(self):
+        if self.action == 'create':
+            permission_classes = [AllowAny]
+        else:
+            permission_classes = [IsAdminUser]
+        return [permission() for permission in permission_classes]
 
 
 # TODO: Add more restrictions
