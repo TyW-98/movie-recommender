@@ -80,7 +80,8 @@ class CustomUserMiniSerializer(serializers.ModelSerializer):
 
 
 class CustomUserSerializer(serializers.ModelSerializer):
-    user_rated_movies = RatedMovieMiniSerializer(many=False)
+    ratedmovies = RatedMovieMiniSerializer(many=True)
+    country = serializers.CharField(source="country.name")
 
     class Meta:
         model = CustomUser
@@ -91,5 +92,5 @@ class CustomUserSerializer(serializers.ModelSerializer):
             "email",
             "age",
             "country",
-            "user_rated_movies",
+            "ratedmovies",
         ]
