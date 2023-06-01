@@ -1,3 +1,32 @@
 * {
   box-sizing: border-box;
 }
+
+/* =========== Header ============== */
+.header-container {
+  display: flex;
+  align-items: center;
+  background-color: rgb(7, 7, 68);
+  padding: 0 20%;
+  color: white;
+}
+
+.movie-searchbar {
+  border-radius: 5px;
+  width: 50%;
+  height: 30px;
+  margin-left: 25px;
+}
+
+.find-movie-btn {
+  margin-left: 10px;
+  height: 30px;
+}
+
+.navbar-option {
+  display: flex;
+  gap: 25px;
+  list-style: none;
+  font-weight: bold;
+  cursor: pointer;
+}
