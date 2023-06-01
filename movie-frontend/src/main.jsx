@@ -3,22 +3,26 @@ import { createRoot } from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
 import "./index.css";
+import { MovieConsumer } from "./MovieContext.jsx";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-  },
-]);
+const router = createBrowserRouter({
+  routes: [
+    {
+      path: "/",
+      element: (
+        <MovieConsumer>
+          <App />
+        </MovieConsumer>
+      ),
+    },
+  ],
+});
 
-export const Context = React.createContext();
-
-const container = document.getElementById("root");
-const root = createRoot(container);
+const root = createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Context.Provider>
-      <RouterProvider router={router} />
-    </Context.Provider>
+    <RouterProvider router={router}>
+      <App />
+    </RouterProvider>
   </React.StrictMode>
 );
