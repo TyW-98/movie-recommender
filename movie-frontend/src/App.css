@@ -40,7 +40,8 @@
 .main-content {
   padding: 0 20%;
   background-color: #9DB2BF;
-  height: 100vh;
+  min-height: 100vh;
+  height: auto;
 }
 
 /* ================= Loading Component =============== */

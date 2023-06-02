@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import YouTube from "react-youtube";
 
 export default function MovieCard(props) {
   const [expanded, setExpanded] = useState(false);
@@ -68,7 +69,9 @@ export default function MovieCard(props) {
         </div>
       </div>
       {expanded && (
-        <div className="movie-card-details">{movieDetails.duration}</div>
+        <div className="movie-card-details">
+          <YouTube videoId="v8ItGrI-Ou0" />
+        </div>
       )}
     </div>
   );
