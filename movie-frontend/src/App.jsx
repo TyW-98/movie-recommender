@@ -7,7 +7,9 @@ export default function App() {
   return (
     <Fragment>
       <Header />
-      <MoiveCardSection />
+      <div className="main-content">
+        <MoiveCardSection />
+      </div>
     </Fragment>
   );
 }
