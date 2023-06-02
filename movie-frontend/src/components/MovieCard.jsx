@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import YouTube from "react-youtube";
 
 export default function MovieCard(props) {
   const [expanded, setExpanded] = useState(false);
   const [movieDetails, setMovieDetails] = useState(false);
-  const [favourite, setFavourite] = useState(false);
+  const [hoverRating, setHoverRating] = useState(0);
+  const [rating, setRating] = useState(0);
 
   function handleExpansion() {
     setExpanded((prevExpanded) => {
@@ -41,11 +41,23 @@ export default function MovieCard(props) {
       });
   }
 
-  function toggleFavourite() {
-    setFavourite((prevFavourite) => {
-      return !prevFavourite;
-    });
+  function handleStar(event, starIdx) {
+    if (event.type === "mouseenter") {
+      setHoverRating(starIdx + 1);
+    } else if (event.type === "mouseleave") {
+      setHoverRating(-1);
+    } else if (event.type === "click") {
+      setRating((prevRating) => {
+        if (prevRating === starIdx + 1) {
+          return 0;
+        } else {
+          return starIdx + 1;
+        }
+      });
+    }
   }
+
+  const displayRating = hoverRating > 0 ? hoverRating : rating;
 
   return (
     <div className="movie-card-container">
@@ -60,19 +72,25 @@ export default function MovieCard(props) {
             </h5>
           </div>
           <div>
-            <FontAwesomeIcon
-              icon={faStar}
-              style={{ color: favourite ? "#f5c211" : "#142227" }}
-              onClick={toggleFavourite}
-            />
+            {[...Array(5)].map((_, index) => {
+              return (
+                <FontAwesomeIcon
+                  key={index}
+                  icon={faStar}
+                  style={{
+                    color: index < displayRating ? "#f5c211" : "#142227",
+                    cursor: "pointer",
+                  }}
+                  onClick={(event) => handleStar(event, index)}
+                  onMouseEnter={(event) => handleStar(event, index)}
+                  onMouseLeave={(event) => handleStar(event, index)}
+                />
+              );
+            })}
           </div>
         </div>
       </div>
-      {expanded && (
-        <div className="movie-card-details">
-          <YouTube videoId="v8ItGrI-Ou0" />
-        </div>
-      )}
+      {expanded && <div className="movie-card-details"></div>}
     </div>
   );
 }
