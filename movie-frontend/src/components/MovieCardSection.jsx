@@ -5,13 +5,15 @@ import PuffLoader from "react-spinners/PuffLoader";
 
 export default function MoiveCardSection() {
   const [movieData, setMovieData] = useState();
+  const [userRatings, setUserRatings] = useState();
+  const [updateUserRatings, setUpdateUserRatings] = useState(true);
 
   useEffect(() => {
     fetch("http://127.0.0.1:8000/api/movies/", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Token 015f83c9038216e9fc85d3643f9fc70dc5de368d",
+        Authorization: "Token 015f83c9038216e9fc85d3643f9fc70dc5de368d", // Admin Token
       },
     })
       .then((res) => res.json())
@@ -38,6 +40,30 @@ export default function MoiveCardSection() {
       });
   }, []);
 
+  useEffect(() => {
+    if (updateUserRatings) {
+      fetch("http://127.0.0.1:8000/api/users/user_rated_movies/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Token c1abe057feb15cd89090a4c6221381a0851769e3", // User 4 Token
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setUserRatings(data);
+        })
+        .then(setUpdateUserRatings(false))
+        .catch((err) => console.log(err));
+    }
+  }, [updateUserRatings]);
+
+  function handleUpdateUserRatings() {
+    setUpdateUserRatings(true);
+  }
+
+  console.log(userRatings);
+
   return (
     <Fragment>
       {!movieData ? (
@@ -49,6 +75,10 @@ export default function MoiveCardSection() {
       ) : (
         <div className="movies-section">
           {movieData.map((movie) => {
+            const currentMovieUserRating =
+              userRatings.output.find(
+                (ratedMovie) => ratedMovie.movie === movie.id
+              )?.user_rating ?? 0;
             return (
               <MovieCard
                 id={movie.id}
@@ -56,6 +86,8 @@ export default function MoiveCardSection() {
                 title={movie.title}
                 publishedDate={movie.publishedDate}
                 avgRating={movie.averageRating}
+                currentMovieUserRating={currentMovieUserRating}
+                handleUpdateUserRatings={handleUpdateUserRatings}
               />
             );
           })}

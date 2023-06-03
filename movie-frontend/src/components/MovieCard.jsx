@@ -6,7 +6,6 @@ export default function MovieCard(props) {
   const [expanded, setExpanded] = useState(false);
   const [movieDetails, setMovieDetails] = useState(false);
   const [hoverRating, setHoverRating] = useState(0);
-  const [rating, setRating] = useState(0);
 
   function handleExpansion() {
     setExpanded((prevExpanded) => !prevExpanded);
@@ -39,14 +38,14 @@ export default function MovieCard(props) {
       });
   }
 
-  function sendUserRating() {
+  function sendUserRating(newRating) {
     fetch(`http://127.0.0.1:8000/api/movies/${props.id}/rate_movie/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Token c1abe057feb15cd89090a4c6221381a0851769e3",
       },
-      body: JSON.stringify({ rating: rating }),
+      body: JSON.stringify({ rating: newRating }),
     })
       .then((res) => res.json())
       .then((res) => console.log(res))
@@ -59,24 +58,20 @@ export default function MovieCard(props) {
     } else if (event.type === "mouseleave") {
       setHoverRating(-1);
     } else if (event.type === "click") {
-      setRating((prevRating) => {
-        if (prevRating === starIdx + 1) {
-          return 0;
-        } else {
-          return starIdx + 1;
-        }
-      });
+      if (props.currentMovieUserRating === starIdx + 1) {
+        sendUserRating(0);
+        props.handleUpdateUserRatings();
+        return 0;
+      } else {
+        sendUserRating(starIdx + 1);
+        props.handleUpdateUserRatings();
+        return starIdx + 1;
+      }
     }
   }
 
-  useEffect(() => {
-    const sendRating = setTimeout(sendUserRating, 3000);
-    return () => {
-      clearTimeout(sendRating);
-    };
-  }, [rating]);
-
-  const displayRating = hoverRating > 0 ? hoverRating : rating;
+  const displayRating =
+    hoverRating > 0 ? hoverRating : props.currentMovieUserRating;
 
   return (
     <div className="movie-card-container">
