@@ -9,9 +9,7 @@ export default function MovieCard(props) {
   const [rating, setRating] = useState(0);
 
   function handleExpansion() {
-    setExpanded((prevExpanded) => {
-      return !prevExpanded;
-    });
+    setExpanded((prevExpanded) => !prevExpanded);
   }
 
   useEffect(() => {
@@ -42,18 +40,17 @@ export default function MovieCard(props) {
   }
 
   function sendUserRating() {
-    fetch(`http://127.0.0.1:8000/api/movies/${props.id}/rate_movie`, {
+    fetch(`http://127.0.0.1:8000/api/movies/${props.id}/rate_movie/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Token c1abe057feb15cd89090a4c6221381a0851769e3"
+        Authorization: "Token c1abe057feb15cd89090a4c6221381a0851769e3",
       },
-      body: JSON.stringify({rating: rating})
+      body: JSON.stringify({ rating: rating }),
     })
-    .then((res) => res.json())
-    .then((res) => console.log(res))
-    .catch((err) => console.log(err))
-    }
+      .then((res) => res.json())
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
   }
 
   function handleStar(event, starIdx) {
@@ -73,11 +70,11 @@ export default function MovieCard(props) {
   }
 
   useEffect(() => {
-    const sendRating = setTimeout(sendUserRating, 3000)
+    const sendRating = setTimeout(sendUserRating, 3000);
     return () => {
-      clearTimeout(sendRating)
-    }
-  },[rating])
+      clearTimeout(sendRating);
+    };
+  }, [rating]);
 
   const displayRating = hoverRating > 0 ? hoverRating : rating;
 
