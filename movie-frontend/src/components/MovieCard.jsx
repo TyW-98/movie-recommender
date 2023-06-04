@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import YouTube from "react-youtube";
 
 export default function MovieCard(props) {
   const [expanded, setExpanded] = useState(false);
-  const [movieDetails, setMovieDetails] = useState(false);
+  const [movieDetails, setMovieDetails] = useState();
   const [hoverRating, setHoverRating] = useState(0);
 
   function handleExpansion() {
@@ -104,7 +105,47 @@ export default function MovieCard(props) {
           </div>
         </div>
       </div>
-      {expanded && <div className="movie-card-details"></div>}
+      {expanded && (
+        <div className="movie-card-descriptions">
+          <YouTube videoId={"itnqEauWQZM"} />
+          {movieDetails && (
+            <div className="movie-card-details">
+              <p>
+                <strong>Description: </strong> An ancient struggle between two
+                Cybertronian races, the heroic Autobots and the evil
+                Decepticons, comes to Earth, with a clue to the ultimate power
+                held by a teenager.
+              </p>
+              <p>
+                <strong>Genre: </strong>
+                {movieDetails.genre}
+              </p>
+              <p>
+                <strong>Language: </strong>
+                {movieDetails.language}
+              </p>
+              <p>
+                <strong>Length: </strong>
+                {movieDetails.duration} minutes
+              </p>
+              <p>
+                <strong>Director: </strong>
+                {movieDetails.director.name}
+              </p>
+              <span className="actor-name-list">
+                <strong>Actors: </strong>
+                {movieDetails.actors.map((actor) => {
+                  return (
+                    <p key={actor.id} className="actor-name">
+                      {actor.name},
+                    </p>
+                  );
+                })}
+              </span>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }

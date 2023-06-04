@@ -1,12 +1,12 @@
 import { useState, useEffect, Fragment } from "react";
 import MovieCard from "./MovieCard";
-import { nanoid } from "nanoid";
 import PuffLoader from "react-spinners/PuffLoader";
 
 export default function MoiveCardSection() {
-  const [movieData, setMovieData] = useState();
+  const [movieData, setMovieData] = useState([]);
   const [userRatings, setUserRatings] = useState();
   const [updateUserRatings, setUpdateUserRatings] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetch("http://127.0.0.1:8000/api/movies/", {
@@ -35,7 +35,6 @@ export default function MoiveCardSection() {
           });
           return filteredMovieData;
         });
-
         setMovieData(filteredData);
       });
   }, []);
@@ -54,6 +53,7 @@ export default function MoiveCardSection() {
           setUserRatings(data);
         })
         .then(setUpdateUserRatings(false))
+        .then(setIsLoading(false))
         .catch((err) => console.log(err));
     }
   }, [updateUserRatings]);
@@ -62,11 +62,9 @@ export default function MoiveCardSection() {
     setUpdateUserRatings(true);
   }
 
-  console.log(userRatings);
-
   return (
     <Fragment>
-      {!movieData ? (
+      {isLoading ? (
         <div className="loader-container">
           <div className="loader-component">
             <PuffLoader color="#132d6e" size={80} />
@@ -86,7 +84,9 @@ export default function MoiveCardSection() {
                 title={movie.title}
                 publishedDate={movie.publishedDate}
                 avgRating={movie.averageRating}
-                currentMovieUserRating={currentMovieUserRating}
+                currentMovieUserRating={
+                  !userRatings ? 0 : currentMovieUserRating
+                }
                 handleUpdateUserRatings={handleUpdateUserRatings}
               />
             );

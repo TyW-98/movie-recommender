@@ -40,8 +40,8 @@
 .main-content {
   padding: 0 20%;
   background-color: #9DB2BF;
-  min-height: 100vh;
   height: auto;
+  min-height: 100vh;
 }
 
 /* ================= Loading Component =============== */
@@ -55,6 +55,7 @@
 /* =================== Movie Card Component ============== */
 .movies-section {
   padding-top: 20px;
+  padding-bottom: 50px;
 }
 
 .movie-card-container {
@@ -86,6 +87,33 @@
   cursor: pointer;
 }
 
-.movie-card-details {
+.movie-card-descriptions {
   border-top: 1px solid black;
+  display: grid;
+  grid-template: auto auto / 1fr 1fr;
+  padding: 15px;
+  gap: 10px;
+}
+
+.movie-card-details {
+  background-color: #27374D;
+  color: white;
+  line-height: 25px;
+  text-align: justify;
+  padding: 10px 5px;
+}
+
+.movie-card-details p strong {
+  color: yellow;
+}
+
+.actor-name-list {
+  color: yellow;
+  display: flex;
+  gap: 10px;
+}
+
+.actor-name {
+  display: inline;
+  color: white;
 }
