@@ -129,3 +129,39 @@
   padding: 10px;
   background-color: #27374D;
 }
+
+/* =========== Login Page ============== */
+.login-container {
+  margin: 0 auto;
+  width: max-content;
+  position: relative;
+  top: 150px;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(15, 15, 15, 0.459);
+}
+
+#username,
+#password {
+  display: block;
+  padding: 5px;
+  width: 330px;
+}
+
+.login-btn,
+.register-btn {
+  display: block;
+  margin: 10px auto;
+  padding: 10px;
+  width: 100%;
+  background-color: rgb(240, 186, 86);
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.login-form p {
+  text-align: center;
+  font-size: 14px;
+}

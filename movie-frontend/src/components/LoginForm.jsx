@@ -1,30 +1,36 @@
 export default function LoginForm() {
+  function handleLogin(event) {
+    event.preventDefault();
+  }
+
   return (
     <div className="login-container">
       <form className="login-form">
-        <label htmlFor="username">
-          <strong>Username: </strong>
-        </label>
         <input
           type="text"
           placeholder="username"
           name="username"
           id="username"
         />
-        <label htmlFor="password">
-          <strong>Password: </strong>
-        </label>
         <input
           type="text"
           placeholder="password"
           name="password"
           id="password"
         />
-        <button type="submit">Log in</button>
+        <button
+          type="submit"
+          className="login-btn"
+          onClick={(event) => handleLogin(event)}
+        >
+          Log in
+        </button>
+        <p>Forgotten Password?</p>
       </form>
-      <p>Forgotten Password?</p>
       <div>
-        <button type="button">Create new Account</button>
+        <button type="button" className="register-btn">
+          Create new Account
+        </button>
       </div>
     </div>
   );
