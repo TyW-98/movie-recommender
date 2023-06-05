@@ -1,7 +1,12 @@
+import { Link } from "react-router-dom";
+
 export default function Header() {
   return (
     <div className="header-container">
-      <h1>FilmExplorer</h1>
+      <Link to="" className="navbar-link">
+        <h1>FilmExplorer</h1>
+      </Link>
+
       <input
         type="text"
         placeholder="Search Movie"
@@ -11,10 +16,9 @@ export default function Header() {
       <div className="navbar-container">
         <ul className="navbar-option">
           <li>
-            <p>Movie List</p>
-          </li>
-          <li>
-            <p>Sign In</p>
+            <Link to="login" className="navbar-link">
+              <p>Register / Sign In</p>
+            </Link>
           </li>
         </ul>
       </div>

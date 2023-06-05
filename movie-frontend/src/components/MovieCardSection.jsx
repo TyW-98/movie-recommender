@@ -52,8 +52,8 @@ export default function MoiveCardSection() {
         .then((data) => {
           setUserRatings(data);
         })
-        .then(setUpdateUserRatings(false))
-        .then(setIsLoading(false))
+        .then(() => setUpdateUserRatings(false))
+        .then(() => setIsLoading(false))
         .catch((err) => console.log(err));
     }
   }, [updateUserRatings]);
@@ -64,7 +64,7 @@ export default function MoiveCardSection() {
 
   return (
     <Fragment>
-      {isLoading ? (
+      {isLoading && !userRatings ? (
         <div className="loader-container">
           <div className="loader-component">
             <PuffLoader color="#132d6e" size={80} />

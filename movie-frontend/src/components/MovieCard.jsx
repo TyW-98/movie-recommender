@@ -82,9 +82,7 @@ export default function MovieCard(props) {
             <span className="card-expand-control" onClick={handleExpansion}>
               {expanded ? "▲" : "▼"}
             </span>
-            <h5>
-              {props.title}({props.publishedDate})
-            </h5>
+            <h5>{props.title}</h5>
           </div>
           <div>
             {[...Array(5)].map((_, index) => {
@@ -110,38 +108,45 @@ export default function MovieCard(props) {
           <YouTube videoId={"itnqEauWQZM"} />
           {movieDetails && (
             <div className="movie-card-details">
-              <p>
-                <strong>Description: </strong> An ancient struggle between two
-                Cybertronian races, the heroic Autobots and the evil
-                Decepticons, comes to Earth, with a clue to the ultimate power
-                held by a teenager.
-              </p>
-              <p>
-                <strong>Genre: </strong>
-                {movieDetails.genre}
-              </p>
-              <p>
-                <strong>Language: </strong>
-                {movieDetails.language}
-              </p>
-              <p>
-                <strong>Length: </strong>
-                {movieDetails.duration} minutes
-              </p>
-              <p>
-                <strong>Director: </strong>
-                {movieDetails.director.name}
-              </p>
-              <span className="actor-name-list">
-                <strong>Actors: </strong>
-                {movieDetails.actors.map((actor) => {
-                  return (
-                    <p key={actor.id} className="actor-name">
-                      {actor.name},
-                    </p>
-                  );
-                })}
-              </span>
+              <div className="movie-description">
+                <p>
+                  An ancient struggle between two Cybertronian races, the heroic
+                  Autobots and the evil Decepticons, comes to Earth, with a clue
+                  to the ultimate power held by a teenager.
+                </p>
+              </div>
+              <div className="movie-info">
+                <p>
+                  <strong>Genre: </strong>
+                  {movieDetails.genre}
+                </p>
+                <p>
+                  <strong>Released Date: </strong>
+                  {props.publishedDate}
+                </p>
+                <p>
+                  <strong>Language: </strong>
+                  {movieDetails.language}
+                </p>
+                <p>
+                  <strong>Length: </strong>
+                  {movieDetails.duration} minutes
+                </p>
+                <p>
+                  <strong>Director: </strong>
+                  {movieDetails.director.name}
+                </p>
+                <span className="actor-name-list">
+                  <strong>Actors: </strong>
+                  {movieDetails.actors.map((actor) => {
+                    return (
+                      <p key={actor.id} className="actor-name">
+                        {actor.name},
+                      </p>
+                    );
+                  })}
+                </span>
+              </div>
             </div>
           )}
         </div>
