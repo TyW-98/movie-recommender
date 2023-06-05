@@ -2,7 +2,9 @@ import { useState } from "react";
 import RegisterForm from "./RegisterForm";
 
 export default function LoginForm() {
-  const [modalStatus, setModalStatus] = useState(false);
+  const [registerModalStatus, setRegisterModalStatus] = useState(false);
+  const [resetPasswordModalStatus, setResetPasswordModalStatus] =
+    useState(false);
   const [loginCredentials, setLoginCredentials] = useState({
     username: "",
     password: "",
@@ -13,7 +15,7 @@ export default function LoginForm() {
   }
 
   function handleOpenRegisterModal() {
-    setModalStatus((prevModalStatus) => {
+    setRegisterModalStatus((prevModalStatus) => {
       return !prevModalStatus;
     });
   }
@@ -65,7 +67,7 @@ export default function LoginForm() {
           Create new Account
         </button>
       </div>
-      {modalStatus && <RegisterForm />}
+      {registerModalStatus && <RegisterForm />}
     </div>
   );
 }
