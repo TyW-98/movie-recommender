@@ -1,14 +1,17 @@
 * {
   box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
 /* =========== Header ============== */
 .header-container {
   display: flex;
   align-items: center;
-  background-color: rgb(7, 7, 68);
-  padding: 0 20%;
+  background-color: #27374D;
+  padding: 25px 20%;
   color: white;
+  gap: 10px;
 }
 
 .movie-searchbar {
@@ -16,17 +19,113 @@
   width: 50%;
   height: 30px;
   margin-left: 25px;
+  padding-left: 5px;
 }
 
 .find-movie-btn {
-  margin-left: 10px;
+  margin: 0 5px;
   height: 30px;
+  padding: 5px;
 }
 
 .navbar-option {
   display: flex;
-  gap: 25px;
+  gap: 15px;
   list-style: none;
   font-weight: bold;
   cursor: pointer;
+}
+
+.navbar-link {
+  text-decoration: none;
+  color: white;
+  font-size: 14px;
+}
+
+/* =============== Main Container =============== */
+.main-content {
+  padding: 0 20%;
+  background-color: #9DB2BF;
+  height: auto;
+  min-height: 100vh;
+}
+
+/* ================= Loading Component =============== */
+.loader-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+/* =================== Movie Card Component ============== */
+.movies-section {
+  padding-top: 20px;
+  padding-bottom: 50px;
+}
+
+.movie-card-container {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+  background-color: #526D82;
+  padding: 20px;
+}
+
+.movie-card-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.movie-card-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.movie-card-header h5 {
+  font-size: 26px;
+}
+
+.card-expand-control {
+  font-size: 25px;
+  color: white;
+  cursor: pointer;
+}
+
+.movie-card-descriptions {
+  border-top: 1px solid black;
+  display: grid;
+  grid-template: auto auto / 1fr 1fr;
+  padding: 15px;
+  gap: 10px;
+}
+
+.movie-card-details {
+  color: white;
+  line-height: 25px;
+  text-align: justify;
+  padding: 10px 5px;
+}
+
+.movie-card-details p strong {
+  color: yellow;
+}
+
+.actor-name-list {
+  color: yellow;
+  display: flex;
+  gap: 10px;
+}
+
+.actor-name {
+  display: inline;
+  color: white;
+}
+
+.movie-description,
+.movie-info {
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #27374D;
 }
