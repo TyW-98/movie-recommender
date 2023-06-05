@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import RegisterForm from "./RegisterForm";
 
 export default function LoginForm() {
@@ -31,43 +31,47 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="login-container">
-      <form className="login-form">
-        <input
-          type="text"
-          placeholder="username"
-          name="username"
-          id="username"
-          value={loginCredentials.username}
-          onChange={handleLoginInput}
-        />
-        <input
-          type="password"
-          placeholder="password"
-          name="password"
-          id="password"
-          value={loginCredentials.password}
-          onChange={handleLoginInput}
-        />
-        <button
-          type="submit"
-          className="login-btn"
-          onClick={(event) => handleLogin(event)}
-        >
-          Log in
-        </button>
-        <p className="reset-password-link">Forgotten Password?</p>
-      </form>
-      <div>
-        <button
-          type="button"
-          className="register-btn"
-          onClick={handleOpenRegisterModal}
-        >
-          Create new Account
-        </button>
+    <Fragment>
+      <div className="login-container">
+        <form className="login-form">
+          <input
+            type="text"
+            placeholder="username"
+            name="username"
+            id="username"
+            value={loginCredentials.username}
+            onChange={handleLoginInput}
+          />
+          <input
+            type="password"
+            placeholder="password"
+            name="password"
+            id="password"
+            value={loginCredentials.password}
+            onChange={handleLoginInput}
+          />
+          <button
+            type="submit"
+            className="login-btn"
+            onClick={(event) => handleLogin(event)}
+          >
+            Log in
+          </button>
+          <p className="reset-password-link">Forgotten Password?</p>
+        </form>
+        <div>
+          <button
+            type="button"
+            className="create-account-btn"
+            onClick={handleOpenRegisterModal}
+          >
+            Create new Account
+          </button>
+        </div>
       </div>
-      {registerModalStatus && <RegisterForm />}
-    </div>
+      {registerModalStatus && (
+        <RegisterForm handleOpenRegisterModal={handleOpenRegisterModal} />
+      )}
+    </Fragment>
   );
 }

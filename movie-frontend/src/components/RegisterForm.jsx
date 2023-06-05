@@ -1,4 +1,7 @@
-export default function RegisterForm() {
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+
+export default function RegisterForm(props) {
   const formElements = [
     { label: "Email", name: "email", id: "email" },
     { label: "Username", name: "username", id: "register-username" },
@@ -11,20 +14,30 @@ export default function RegisterForm() {
   ];
 
   return (
-    <div className="register-container">
-      <h2>Create a new account</h2>
-      <form className="register-form">
-        {formElements.map((element) => {
-          return (
-            <div key={element.id}>
-              <label htmlFor={element.id}>
-                <strong>{element.label}</strong>
-              </label>
-              <input type="text" name={element.name} id={element.id} />
-            </div>
-          );
-        })}
-      </form>
+    <div className="modal">
+      <div className="register-container">
+        <FontAwesomeIcon
+          icon={faXmark}
+          onClick={props.handleOpenRegisterModal}
+          className="close-modal-btn"
+        />
+        <h2>Create a new account</h2>
+        <form className="register-form">
+          {formElements.map((element) => {
+            return (
+              <div key={element.id}>
+                <label htmlFor={element.id}>
+                  <strong>{element.label}</strong>
+                </label>
+                <input type="text" name={element.name} id={element.id} />
+              </div>
+            );
+          })}
+          <button type="submit" className="register-btn">
+            Join Now
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

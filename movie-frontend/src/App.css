@@ -150,7 +150,8 @@
 }
 
 .login-btn,
-.register-btn {
+.register-btn,
+.create-account-btn {
   display: block;
   margin: 10px auto;
   padding: 10px;
@@ -159,6 +160,7 @@
   font-size: 20px;
   font-weight: bold;
   cursor: pointer;
+  border-radius: 5px;
 }
 
 .login-form p {
@@ -172,4 +174,47 @@
 
 .reset-password-link:hover {
   color: blue;
+}
+
+.modal {
+  position: absolute;
+  z-index: 5;
+  background-color: rgba(0, 0, 0, 1);
+  background-color: rgba(0, 0, 0, 0.4);
+  width: 100%;
+  top: 0;
+  left: 0;
+  height: 110vh;
+}
+
+.register-container {
+  width: max-content;
+  margin: 0 auto;
+  margin-top: 225px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  position: relative;
+}
+
+.close-modal-btn {
+  cursor: pointer;
+  position: absolute;
+  top: 7.5px;
+  right: 10px;
+}
+
+.register-form {
+  margin-top: 10px;
+  width: 500px;
+}
+
+.register-form div label {
+  display: block;
+}
+
+.register-form div input {
+  border-radius: 2.5px;
+  padding: 5px;
+  width: 100%;
 }
