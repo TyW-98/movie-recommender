@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import CountryOptions from "./CountryOptions";
 
 export default function RegisterForm(props) {
   const formElements = [
@@ -29,7 +30,22 @@ export default function RegisterForm(props) {
                 <label htmlFor={element.id}>
                   <strong>{element.label}</strong>
                 </label>
-                <input type="text" name={element.name} id={element.id} />
+                {element.id === "country" ? (
+                  <CountryOptions />
+                ) : (
+                  <input
+                    type={
+                      element.name === "email"
+                        ? "email"
+                        : element.name === "password" ||
+                          element.name === "password2"
+                        ? "password"
+                        : "text"
+                    }
+                    name={element.name}
+                    id={element.id}
+                  />
+                )}
               </div>
             );
           })}
