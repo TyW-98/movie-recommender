@@ -1,6 +1,31 @@
+import { useState } from "react";
+import RegisterForm from "./RegisterForm";
+
 export default function LoginForm() {
+  const [modalStatus, setModalStatus] = useState(false);
+  const [loginCredentials, setLoginCredentials] = useState({
+    username: "",
+    password: "",
+  });
+
   function handleLogin(event) {
     event.preventDefault();
+  }
+
+  function handleOpenRegisterModal() {
+    setModalStatus((prevModalStatus) => {
+      return !prevModalStatus;
+    });
+  }
+
+  function handleLoginInput(event) {
+    const { name, value } = event.target;
+    setLoginCredentials((prevLoginCredentials) => {
+      return {
+        ...prevLoginCredentials,
+        [name]: value,
+      };
+    });
   }
 
   return (
@@ -11,12 +36,16 @@ export default function LoginForm() {
           placeholder="username"
           name="username"
           id="username"
+          value={loginCredentials.username}
+          onChange={handleLoginInput}
         />
         <input
-          type="text"
+          type="password"
           placeholder="password"
           name="password"
           id="password"
+          value={loginCredentials.password}
+          onChange={handleLoginInput}
         />
         <button
           type="submit"
@@ -25,13 +54,18 @@ export default function LoginForm() {
         >
           Log in
         </button>
-        <p>Forgotten Password?</p>
+        <p className="reset-password-link">Forgotten Password?</p>
       </form>
       <div>
-        <button type="button" className="register-btn">
+        <button
+          type="button"
+          className="register-btn"
+          onClick={handleOpenRegisterModal}
+        >
           Create new Account
         </button>
       </div>
+      {modalStatus && <RegisterForm />}
     </div>
   );
 }

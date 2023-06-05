@@ -165,3 +165,11 @@
   text-align: center;
   font-size: 14px;
 }
+
+.reset-password-link {
+  cursor: pointer;
+}
+
+.reset-password-link:hover {
+  color: blue;
+}
