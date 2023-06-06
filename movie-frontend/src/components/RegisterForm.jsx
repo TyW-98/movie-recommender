@@ -7,7 +7,7 @@ import GenderOptions from "./GenderOptions";
 
 export default function RegisterForm(props) {
   const [accountCreated, setAccountCreated] = useState(false);
-
+  const [countryObject, setCountryObject] = useState();
   const [registerDetails, setRegisterDetails] = useState({
     email: "",
     username: "",
@@ -37,7 +37,16 @@ export default function RegisterForm(props) {
   function registerNewUser(event) {
     event.preventDefault();
     console.log(registerDetails);
-    // props.handleOpenRegisterModal();
+    fetch("http://127.0.0.1:8000/api/users/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(registerDetails),
+    })
+      .then((res) => res.json())
+      .then(() => props.handleOpenRegisterModal())
+      .catch((err) => console.log(err));
   }
 
   function handleRegisterDetails(event) {
@@ -50,14 +59,17 @@ export default function RegisterForm(props) {
     });
   }
 
-  function handleSelectedCountry(value) {
+  function handleSelectedCountry(option) {
+    setCountryObject(option);
     setRegisterDetails((prevRegisterDetails) => {
       return {
         ...prevRegisterDetails,
-        country: value,
+        country: option.value,
       };
     });
   }
+
+  console.log(registerDetails);
 
   function handleSelectedGender(event) {
     const { value } = event.target;
@@ -91,7 +103,7 @@ export default function RegisterForm(props) {
           className="close-modal-btn"
         />
         <h2>Create a new account</h2>
-        <form className="register-form">
+        <form className="register-form" onSubmit={registerNewUser}>
           {formElements.map((element) => {
             return (
               <div key={element.id}>
@@ -100,7 +112,7 @@ export default function RegisterForm(props) {
                 </label>
                 {element.id === "country" ? (
                   <CountryOptions
-                    selectedCountry={registerDetails.country}
+                    selectedCountry={countryObject}
                     handleSelectedCountry={handleSelectedCountry}
                   />
                 ) : element.id === "dob" ? (
@@ -129,11 +141,7 @@ export default function RegisterForm(props) {
               </div>
             );
           })}
-          <button
-            type="submit"
-            className="register-btn"
-            onClick={registerNewUser}
-          >
+          <button type="submit" className="register-btn">
             Join Now
           </button>
         </form>

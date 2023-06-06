@@ -7,6 +7,7 @@ export default function MovieCard(props) {
   const [expanded, setExpanded] = useState(false);
   const [movieDetails, setMovieDetails] = useState();
   const [hoverRating, setHoverRating] = useState(0);
+  const [userRating, setUserRating] = useState(props.currentMovieUserRating);
 
   function handleExpansion() {
     setExpanded((prevExpanded) => !prevExpanded);
@@ -49,7 +50,10 @@ export default function MovieCard(props) {
       body: JSON.stringify({ rating: newRating }),
     })
       .then((res) => res.json())
-      .then((res) => console.log(res))
+      .then((res) => {
+        setUserRating(newRating);
+        props.handleUpdateUserRatings();
+      })
       .catch((err) => console.log(err));
   }
 
@@ -71,8 +75,7 @@ export default function MovieCard(props) {
     }
   }
 
-  const displayRating =
-    hoverRating > 0 ? hoverRating : props.currentMovieUserRating;
+  const displayRating = hoverRating > 0 ? hoverRating : userRating;
 
   return (
     <div className="movie-card-container">
