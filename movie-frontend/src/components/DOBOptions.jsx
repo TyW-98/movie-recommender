@@ -8,6 +8,7 @@ export default function DOBOptions(props) {
           name="day"
           value={props.dateOfBirth.day}
           onChange={props.handleDOB}
+          required
         >
           <option value="">Day</option>
           {Array.from({ length: 31 }, (_, index) => index + 1).map((day) => {
@@ -24,6 +25,7 @@ export default function DOBOptions(props) {
           name="month"
           value={props.dateOfBirth.month}
           onChange={props.handleDOB}
+          required
         >
           <option value="">Month</option>
           {Array.from({ length: 12 }, (_, index) => index + 1).map((month) => {
@@ -40,6 +42,7 @@ export default function DOBOptions(props) {
           name="year"
           value={props.dateOfBirth.year}
           onChange={props.handleDOB}
+          required
         >
           <option value="">Year</option>
           {Array.from({ length: 100 }, (_, index) => currrentYear - index).map(

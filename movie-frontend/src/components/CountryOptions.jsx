@@ -214,5 +214,5 @@ export default function CountryOptions() {
     }),
   ];
 
-  return <Select options={options} />;
+  return <Select options={options} required />;
 }

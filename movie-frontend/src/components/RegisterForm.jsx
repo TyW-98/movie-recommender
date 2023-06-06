@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import CountryOptions from "./CountryOptions";
 import DOBOptions from "./DOBOptions";
+import GenderOptions from "./GenderOptions";
 
 export default function RegisterForm(props) {
   const [dateOfBirth, setDateOfBirth] = useState({
@@ -10,6 +11,7 @@ export default function RegisterForm(props) {
     month: "",
     year: "",
   });
+  const [gender, setGender] = useState("");
 
   const formElements = [
     { label: "Email", name: "email", id: "email" },
@@ -22,7 +24,7 @@ export default function RegisterForm(props) {
     { label: "Country", name: "country", id: "country" },
   ];
 
-  function setDate(event) {
+  function handleDOB(event) {
     const { name, value } = event.target;
     setDateOfBirth((prevDateOfBirth) => {
       return {
@@ -32,14 +34,8 @@ export default function RegisterForm(props) {
     });
   }
 
-  function handleDOB(event) {
-    const { name, value } = event.target;
-    setDateOfBirth((prevDateOfBirth) => {
-      return {
-        ...prevDateOfBirth,
-        [name]: value,
-      };
-    });
+  function handleGender(event) {
+    setGender(event.target.value);
   }
 
   return (
@@ -62,6 +58,8 @@ export default function RegisterForm(props) {
                   <CountryOptions />
                 ) : element.id === "dob" ? (
                   <DOBOptions dateOfBirth={dateOfBirth} handleDOB={handleDOB} />
+                ) : element.id === "gender" ? (
+                  <GenderOptions handleGender={handleGender} />
                 ) : (
                   <input
                     type={
@@ -74,6 +72,7 @@ export default function RegisterForm(props) {
                     }
                     name={element.name}
                     id={element.id}
+                    required
                   />
                 )}
               </div>
