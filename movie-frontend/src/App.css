@@ -229,6 +229,7 @@
 }
 
 /* ================== Date of Birth ================= */
+
 .dob-container {
   display: flex;
   gap: 20px;
@@ -239,11 +240,13 @@
 .dob-month-container select,
 .dob-year-container select {
   padding: 10px;
-  border-radius: 25px;
   cursor: pointer;
+  background-color: white;
+  border: none;
 }
 
 /* =================== Gender ========================= */
+
 .gender-container {
   display: flex;
   gap: 20px;

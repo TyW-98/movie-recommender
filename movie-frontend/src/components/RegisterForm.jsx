@@ -6,36 +6,80 @@ import DOBOptions from "./DOBOptions";
 import GenderOptions from "./GenderOptions";
 
 export default function RegisterForm(props) {
-  const [dateOfBirth, setDateOfBirth] = useState({
-    day: "",
-    month: "",
-    year: "",
+  const [accountCreated, setAccountCreated] = useState(false);
+
+  const [registerDetails, setRegisterDetails] = useState({
+    email: "",
+    username: "",
+    password: "",
+    password2: "",
+    preferredName: "",
+    dob: {
+      day: "",
+      month: "",
+      year: "",
+    },
+    gender: "",
+    country: "",
   });
-  const [gender, setGender] = useState("");
 
   const formElements = [
     { label: "Email", name: "email", id: "email" },
     { label: "Username", name: "username", id: "register-username" },
     { label: "Password", name: "password", id: "register-password" },
     { label: "Confirmation Password", name: "password2", id: "password2" },
-    { label: "Preferred Name", name: "preferred_name", id: "preferred-name" },
+    { label: "Preferred Name", name: "preferredName", id: "preferred-name" },
     { label: "Date of Birth", name: "dob", id: "dob" },
     { label: "Gender", name: "gender", id: "gender" },
     { label: "Country", name: "country", id: "country" },
   ];
 
-  function handleDOB(event) {
+  function registerNewUser(event) {
+    event.preventDefault();
+    console.log(registerDetails);
+    // props.handleOpenRegisterModal();
+  }
+
+  function handleRegisterDetails(event) {
     const { name, value } = event.target;
-    setDateOfBirth((prevDateOfBirth) => {
+    setRegisterDetails((prevRegisterDetails) => {
       return {
-        ...prevDateOfBirth,
+        ...prevRegisterDetails,
         [name]: value,
       };
     });
   }
 
-  function handleGender(event) {
-    setGender(event.target.value);
+  function handleSelectedCountry(value) {
+    setRegisterDetails((prevRegisterDetails) => {
+      return {
+        ...prevRegisterDetails,
+        country: value,
+      };
+    });
+  }
+
+  function handleSelectedGender(event) {
+    const { value } = event.target;
+    setRegisterDetails((prevRegisterDetails) => {
+      return {
+        ...prevRegisterDetails,
+        gender: value,
+      };
+    });
+  }
+
+  function handleDOB(event) {
+    const { name, value } = event.target;
+    setRegisterDetails((prevRegisterDetails) => {
+      return {
+        ...prevRegisterDetails,
+        dob: {
+          ...prevRegisterDetails.dob,
+          [name]: value,
+        },
+      };
+    });
   }
 
   return (
@@ -55,11 +99,17 @@ export default function RegisterForm(props) {
                   <strong>{element.label}</strong>
                 </label>
                 {element.id === "country" ? (
-                  <CountryOptions />
+                  <CountryOptions
+                    selectedCountry={registerDetails.country}
+                    handleSelectedCountry={handleSelectedCountry}
+                  />
                 ) : element.id === "dob" ? (
-                  <DOBOptions dateOfBirth={dateOfBirth} handleDOB={handleDOB} />
+                  <DOBOptions
+                    dateOfBirth={registerDetails.dob}
+                    handleDOB={handleDOB}
+                  />
                 ) : element.id === "gender" ? (
-                  <GenderOptions handleGender={handleGender} />
+                  <GenderOptions handleSelectedGender={handleSelectedGender} />
                 ) : (
                   <input
                     type={
@@ -72,13 +122,18 @@ export default function RegisterForm(props) {
                     }
                     name={element.name}
                     id={element.id}
+                    onChange={handleRegisterDetails}
                     required
                   />
                 )}
               </div>
             );
           })}
-          <button type="submit" className="register-btn">
+          <button
+            type="submit"
+            className="register-btn"
+            onClick={registerNewUser}
+          >
             Join Now
           </button>
         </form>

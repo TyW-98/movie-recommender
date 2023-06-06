@@ -1,6 +1,6 @@
 import Select from "react-select";
 
-export default function CountryOptions() {
+export default function CountryOptions(props) {
   const countries = [
     { name: "Afghanistan", code: "AF" },
     { name: "Albania", code: "AL" },
@@ -214,5 +214,13 @@ export default function CountryOptions() {
     }),
   ];
 
-  return <Select options={options} required />;
+  return (
+    <Select
+      options={options}
+      required
+      name="country"
+      value={props.selectedCountry}
+      onChange={props.handleSelectedCountry}
+    />
+  );
 }

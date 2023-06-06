@@ -70,7 +70,10 @@ export default function LoginForm() {
         </div>
       </div>
       {registerModalStatus && (
-        <RegisterForm handleOpenRegisterModal={handleOpenRegisterModal} />
+        <RegisterForm
+          registerModalStatus={registerModalStatus}
+          handleOpenRegisterModal={handleOpenRegisterModal}
+        />
       )}
     </Fragment>
   );

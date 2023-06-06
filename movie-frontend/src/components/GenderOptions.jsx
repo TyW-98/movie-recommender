@@ -14,8 +14,8 @@ export default function GenderOptions(props) {
               name="gender"
               value={gender}
               id={gender}
-              onClick={props.handleGender}
               required
+              onClick={props.handleSelectedGender}
             />
           </div>
         );
