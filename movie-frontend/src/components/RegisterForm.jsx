@@ -1,18 +1,36 @@
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import CountryOptions from "./CountryOptions";
+import DOBOptions from "./DOBOptions";
 
 export default function RegisterForm(props) {
+  const [dateOfBirth, setDateOfBirth] = useState({
+    day: "",
+    month: "",
+    year: "",
+  });
+
   const formElements = [
     { label: "Email", name: "email", id: "email" },
     { label: "Username", name: "username", id: "register-username" },
     { label: "Password", name: "password", id: "register-password" },
     { label: "Confirmation Password", name: "password2", id: "password2" },
     { label: "Preferred Name", name: "preferred_name", id: "preferred-name" },
-    { label: "Age", name: "age", id: "age" },
+    { label: "Date of Birth", name: "dob", id: "dob" },
     { label: "Gender", name: "gender", id: "gender" },
     { label: "Country", name: "country", id: "country" },
   ];
+
+  function setDate(event) {
+    const { name, value } = event.target;
+    setDateOfBirth((prevDateOfBirth) => {
+      return {
+        ...prevDateOfBirth,
+        [name]: value,
+      };
+    });
+  }
 
   return (
     <div className="modal">
@@ -32,6 +50,8 @@ export default function RegisterForm(props) {
                 </label>
                 {element.id === "country" ? (
                   <CountryOptions />
+                ) : element.id === "dob" ? (
+                  <DOBOptions dateOfBirth={dateOfBirth} />
                 ) : (
                   <input
                     type={
