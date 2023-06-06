@@ -66,7 +66,7 @@ class CustomUserManager(BaseUserManager):
             raise ValueError("You must provide an email address")
 
         email = self.normalize_email(email)
-        user = self.model(username=username, email=email, **other_fields)
+        user = self.model(username=username, email=email, preferred_name=other_fields.get('preferredName'), gender=other_fields.get('gender'), country=other_fields.get('country'), age=other_fields.get('age'), **other_fields)
         user.set_password(password)
         user.save()
 
