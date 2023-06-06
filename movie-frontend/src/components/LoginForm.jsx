@@ -1,5 +1,6 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useContext } from "react";
 import RegisterForm from "./RegisterForm";
+import { LoginContext } from "../LoginContext";
 
 export default function LoginForm() {
   const [registerModalStatus, setRegisterModalStatus] = useState(false);
@@ -9,6 +10,7 @@ export default function LoginForm() {
     username: "",
     password: "",
   });
+  const { setLoginToken } = useContext(LoginContext);
 
   function handleLogin(event) {
     event.preventDefault();
@@ -20,7 +22,10 @@ export default function LoginForm() {
       body: JSON.stringify(loginCredentials),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data))
+      .then((data) => {
+        setLoginToken(data.token);
+        console.log(data.token);
+      })
       .catch((err) => console.log(err));
   }
 

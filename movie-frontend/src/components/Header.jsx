@@ -1,6 +1,10 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { LoginContext } from "../LoginContext";
 
 export default function Header() {
+  const { loginToken } = useContext(LoginContext);
+
   return (
     <div className="header-container">
       <Link to="" className="navbar-link">
@@ -17,7 +21,7 @@ export default function Header() {
         <ul className="navbar-option">
           <li>
             <Link to="login" className="navbar-link">
-              <p>Register / Sign In</p>
+              <p>{loginToken ? "log out" : "Register / Sign In"}</p>
             </Link>
           </li>
         </ul>
