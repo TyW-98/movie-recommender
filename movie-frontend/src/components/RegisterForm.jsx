@@ -32,6 +32,16 @@ export default function RegisterForm(props) {
     });
   }
 
+  function handleDOB(event) {
+    const { name, value } = event.target;
+    setDateOfBirth((prevDateOfBirth) => {
+      return {
+        ...prevDateOfBirth,
+        [name]: value,
+      };
+    });
+  }
+
   return (
     <div className="modal">
       <div className="register-container">
@@ -51,7 +61,7 @@ export default function RegisterForm(props) {
                 {element.id === "country" ? (
                   <CountryOptions />
                 ) : element.id === "dob" ? (
-                  <DOBOptions dateOfBirth={dateOfBirth} />
+                  <DOBOptions dateOfBirth={dateOfBirth} handleDOB={handleDOB} />
                 ) : (
                   <input
                     type={

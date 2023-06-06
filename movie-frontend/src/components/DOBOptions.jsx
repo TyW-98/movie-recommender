@@ -1,19 +1,14 @@
 export default function DOBOptions(props) {
   const currrentYear = new Date().getFullYear();
 
-  function handleDOB(event) {
-    const { name, value } = event.target;
-    props.setDateOfBirth((prevDateOfBirth) => {
-      return {
-        ...prevDateOfBirth,
-        [name]: value,
-      };
-    });
-  }
   return (
     <div className="dob-container">
       <div className="dob-day-container">
-        <select value={props.dateOfBirth.day} onChange={handleDOB}>
+        <select
+          name="day"
+          value={props.dateOfBirth.day}
+          onChange={props.handleDOB}
+        >
           <option value="">Day</option>
           {Array.from({ length: 31 }, (_, index) => index + 1).map((day) => {
             return (
@@ -25,7 +20,11 @@ export default function DOBOptions(props) {
         </select>
       </div>
       <div className="dob-month-container">
-        <select value={props.dateOfBirth.month} onChange={handleDOB}>
+        <select
+          name="month"
+          value={props.dateOfBirth.month}
+          onChange={props.handleDOB}
+        >
           <option value="">Month</option>
           {Array.from({ length: 12 }, (_, index) => index + 1).map((month) => {
             return (
@@ -37,7 +36,11 @@ export default function DOBOptions(props) {
         </select>
       </div>
       <div className="dob-year-container">
-        <select value={props.dateOfBirth.year} onChange={handleDOB}>
+        <select
+          name="year"
+          value={props.dateOfBirth.year}
+          onChange={props.handleDOB}
+        >
           <option value="">Year</option>
           {Array.from({ length: 100 }, (_, index) => currrentYear - index).map(
             (year) => {
