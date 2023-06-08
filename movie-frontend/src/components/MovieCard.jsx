@@ -24,7 +24,6 @@ export default function MovieCard(props) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Token 015f83c9038216e9fc85d3643f9fc70dc5de368d",
       },
     })
       .then((res) => res.json())
