@@ -1,12 +1,15 @@
-import { useState, useEffect, Fragment } from "react";
+import { useState, useEffect, Fragment, useContext } from "react";
 import MovieCard from "./MovieCard";
 import PuffLoader from "react-spinners/PuffLoader";
+import { LoginContext } from "../LoginContext";
 
 export default function MoiveCardSection() {
   const [movieData, setMovieData] = useState([]);
   const [userRatings, setUserRatings] = useState();
   const [updateUserRatings, setUpdateUserRatings] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
+
+  const { loginToken } = useContext(LoginContext);
 
   useEffect(() => {
     fetch("http://127.0.0.1:8000/api/movies/", {
