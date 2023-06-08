@@ -1,12 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import YouTube from "react-youtube";
+import { LoginContext } from "../LoginContext";
 
 export default function MovieCard(props) {
   const [expanded, setExpanded] = useState(false);
   const [movieDetails, setMovieDetails] = useState();
   const [hoverRating, setHoverRating] = useState(0);
+  const [userRating, setUserRating] = useState(props.currentMovieUserRating);
+  const { loginToken } = useContext(LoginContext);
 
   function handleExpansion() {
     setExpanded((prevExpanded) => !prevExpanded);
@@ -23,7 +26,6 @@ export default function MovieCard(props) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Token 015f83c9038216e9fc85d3643f9fc70dc5de368d",
       },
     })
       .then((res) => res.json())
@@ -44,12 +46,15 @@ export default function MovieCard(props) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Token c1abe057feb15cd89090a4c6221381a0851769e3",
+        Authorization: `Token ${loginToken}`,
       },
       body: JSON.stringify({ rating: newRating }),
     })
       .then((res) => res.json())
-      .then((res) => console.log(res))
+      .then((res) => {
+        setUserRating(newRating);
+        props.handleUpdateUserRatings();
+      })
       .catch((err) => console.log(err));
   }
 
@@ -71,8 +76,7 @@ export default function MovieCard(props) {
     }
   }
 
-  const displayRating =
-    hoverRating > 0 ? hoverRating : props.currentMovieUserRating;
+  const displayRating = hoverRating > 0 ? hoverRating : userRating;
 
   return (
     <div className="movie-card-container">

@@ -22,7 +22,7 @@ from .serializers import (
 # Create your views here.
 class BaseModelViewSet(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (AllowAny,)
 
     serializer_classes = {
         "movie": MovieSerializer,
@@ -66,7 +66,7 @@ class BaseModelViewSet(viewsets.ModelViewSet):
 class MovieViewSet(BaseModelViewSet):
     serializer_class = MovieMiniSerializer
     queryset = Movie.objects.all()
-
+    
     @action(detail=True, methods=["POST"])
     def rate_movie(self, request, pk=None):
         if "rating" in request.data:
@@ -98,7 +98,6 @@ class MovieViewSet(BaseModelViewSet):
         else:
             response = {"Message": "Please include your rating"}
             return Response(response, status=status.HTTP_400_BAD_REQUEST)
-
 
 class DirectorViewSet(BaseModelViewSet):
     serializer_class = DirectorMiniSerializer
