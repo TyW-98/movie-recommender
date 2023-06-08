@@ -147,6 +147,11 @@
   box-shadow: 0 4px 10px rgba(15, 15, 15, 0.459);
 }
 
+.login-warning {
+  margin: 5px 0;
+  text-align: center;
+}
+
 #username,
 #password {
   display: block;

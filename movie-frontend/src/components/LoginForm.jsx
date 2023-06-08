@@ -1,6 +1,7 @@
 import { Fragment, useState, useContext } from "react";
 import RegisterForm from "./RegisterForm";
 import { LoginContext } from "../LoginContext";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginForm() {
   const [registerModalStatus, setRegisterModalStatus] = useState(false);
@@ -10,7 +11,9 @@ export default function LoginForm() {
     username: "",
     password: "",
   });
-  const { setLoginToken } = useContext(LoginContext);
+  const [wrongLoginDetails, setWrongLoginDetails] = useState(false);
+  const { loginToken, setLoginToken } = useContext(LoginContext);
+  const navigate = useNavigate();
 
   function handleLogin(event) {
     event.preventDefault();
@@ -24,7 +27,12 @@ export default function LoginForm() {
       .then((res) => res.json())
       .then((data) => {
         setLoginToken(data.token);
-        console.log(data.token);
+        if (loginToken) {
+          setWrongLoginDetails(false);
+          navigate("/");
+        } else {
+          setWrongLoginDetails(true);
+        }
       })
       .catch((err) => console.log(err));
   }
@@ -48,6 +56,11 @@ export default function LoginForm() {
   return (
     <Fragment>
       <div className="login-container">
+        {wrongLoginDetails && (
+          <div className="login-warning">
+            <p>Incorrect Username or Password</p>
+          </div>
+        )}
         <form className="login-form">
           <input
             type="text"

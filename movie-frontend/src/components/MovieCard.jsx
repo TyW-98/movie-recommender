@@ -1,13 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import YouTube from "react-youtube";
+import { LoginContext } from "../LoginContext";
 
 export default function MovieCard(props) {
   const [expanded, setExpanded] = useState(false);
   const [movieDetails, setMovieDetails] = useState();
   const [hoverRating, setHoverRating] = useState(0);
   const [userRating, setUserRating] = useState(props.currentMovieUserRating);
+  const { loginToken } = useContext(LoginContext);
 
   function handleExpansion() {
     setExpanded((prevExpanded) => !prevExpanded);
@@ -44,7 +46,7 @@ export default function MovieCard(props) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Token c1abe057feb15cd89090a4c6221381a0851769e3",
+        Authorization: `Token ${loginToken}`,
       },
       body: JSON.stringify({ rating: newRating }),
     })

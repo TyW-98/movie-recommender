@@ -21,7 +21,7 @@ export default function Header() {
         <ul className="navbar-option">
           <li>
             <Link to="login" className="navbar-link">
-              <p>{loginToken ? "log out" : "Register / Sign In"}</p>
+              <p>{loginToken ? "Hello / Log Out" : "Register / Sign In"}</p>
             </Link>
           </li>
         </ul>
