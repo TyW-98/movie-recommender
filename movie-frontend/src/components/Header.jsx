@@ -1,13 +1,23 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { LoginContext } from "../LoginContext";
 
 export default function Header() {
-  const { loginToken } = useContext(LoginContext);
+  const { loginToken, setLoginToken } = useContext(LoginContext);
+
+  function handleLogout() {
+    setLoginToken((prevLoginToken) => {
+      if (prevLoginToken) {
+        window.location.reload();
+        return null;
+      }
+      return prevLoginToken;
+    });
+  }
 
   return (
     <div className="header-container">
-      <Link to="" className="navbar-link">
+      <Link to="/" className="navbar-link">
         <h1>FilmExplorer</h1>
       </Link>
 
@@ -20,8 +30,10 @@ export default function Header() {
       <div className="navbar-container">
         <ul className="navbar-option">
           <li>
-            <Link to="login" className="navbar-link">
-              <p>{loginToken ? "Hello / Log Out" : "Register / Sign In"}</p>
+            <Link to={loginToken ? "/" : "/login"} className="navbar-link">
+              <p onClick={handleLogout}>
+                {loginToken ? "Hello / Log Out" : "Register / Sign In"}
+              </p>
             </Link>
           </li>
         </ul>

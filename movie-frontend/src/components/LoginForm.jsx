@@ -26,8 +26,8 @@ export default function LoginForm() {
     })
       .then((res) => res.json())
       .then((data) => {
-        setLoginToken(data.token);
-        if (loginToken) {
+        if (data.token) {
+          setLoginToken(data.token);
           setWrongLoginDetails(false);
           navigate("/");
         } else {
