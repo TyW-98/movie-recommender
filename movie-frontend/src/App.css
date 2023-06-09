@@ -265,3 +265,17 @@
   border: #526D82 solid 1px;
   border-radius: 10px;
 }
+
+/* ============= Result Page ===================== */
+.result-page {
+  padding-top: 50px;
+}
+
+.result-details {
+  background-color: #3dabaf;
+  padding: 10px;
+}
+
+.result-actor-name {
+  display: inline;
+}
