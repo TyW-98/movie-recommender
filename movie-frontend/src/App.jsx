@@ -1,14 +1,31 @@
-import { useState } from "react";
+import { Fragment } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
+import "flag-icons/css/flag-icons.min.css";
+import Header from "./components/Header.jsx";
+import MovieCardSection from "./components/MovieCardSection";
+import LoginForm from "./components/LoginForm";
+import SearchPage from "./components/SearchResultPage";
+import { LoginProvider } from "./LoginContext";
+import { SearchProvider } from "./SearchContext";
 
-function App() {
-  const [count, setCount] = useState(0);
-
+export default function App() {
   return (
-    <>
-      <h1>Test Conenction</h1>
-    </>
+    <Fragment>
+      <Router>
+        <LoginProvider>
+          <SearchProvider>
+            <Header />
+            <div className="main-content">
+              <Routes>
+                <Route path="/" element={<MovieCardSection />} />
+                <Route path="/login" element={<LoginForm />} />
+                <Route path="/result" element={<SearchPage />} />
+              </Routes>
+            </div>
+          </SearchProvider>
+        </LoginProvider>
+      </Router>
+    </Fragment>
   );
 }
-
-export default App;

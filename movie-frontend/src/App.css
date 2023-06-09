@@ -1,6 +1,281 @@
-#root {
-  max-width: 1280px;
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+/* =========== Header ============== */
+
+.header-container {
+  display: flex;
+  align-items: center;
+  background-color: #27374D;
+  padding: 25px 20%;
+  color: white;
+  gap: 10px;
+}
+
+.movie-searchbar {
+  border-radius: 5px;
+  width: 50%;
+  height: 30px;
+  margin-left: 25px;
+  padding-left: 5px;
+}
+
+.find-movie-btn {
+  margin: 0 5px;
+  height: 30px;
+  padding: 5px;
+}
+
+.navbar-option {
+  display: flex;
+  gap: 15px;
+  list-style: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.navbar-link {
+  text-decoration: none;
+  color: white;
+  font-size: 14px;
+}
+
+/* =============== Main Container =============== */
+
+.main-content {
+  padding: 0 20%;
+  background-color: #9DB2BF;
+  height: auto;
+  min-height: 100vh;
+}
+
+/* ================= Loading Component =============== */
+
+.loader-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+/* =================== Movie Card Component ============== */
+
+.movies-section {
+  padding-top: 20px;
+  padding-bottom: 50px;
+}
+
+.movie-card-container {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+  background-color: #526D82;
+  padding: 20px;
+}
+
+.movie-card-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.movie-card-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.movie-card-header h5 {
+  font-size: 26px;
+}
+
+.card-expand-control {
+  font-size: 25px;
+  color: white;
+  cursor: pointer;
+}
+
+.movie-card-descriptions {
+  border-top: 1px solid black;
+  display: grid;
+  grid-template: auto auto / 1fr 1fr;
+  padding: 15px;
+  gap: 10px;
+}
+
+.movie-card-details {
+  color: white;
+  line-height: 25px;
+  text-align: justify;
+  padding: 10px 5px;
+}
+
+.movie-card-details p strong {
+  color: yellow;
+}
+
+.actor-name-list {
+  color: yellow;
+  display: flex;
+  gap: 10px;
+}
+
+.actor-name {
+  display: inline;
+  color: white;
+}
+
+.movie-description,
+.movie-info {
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #27374D;
+}
+
+/* =========== Login Page ============== */
+
+.login-container {
   margin: 0 auto;
-  padding: 2rem;
+  width: max-content;
+  position: relative;
+  top: 150px;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(15, 15, 15, 0.459);
+}
+
+.login-warning {
+  margin: 5px 0;
   text-align: center;
+}
+
+#username,
+#password {
+  display: block;
+  padding: 5px;
+  width: 330px;
+}
+
+.login-btn,
+.register-btn,
+.create-account-btn {
+  display: block;
+  margin: 10px auto;
+  padding: 10px;
+  width: 100%;
+  background-color: rgb(240, 186, 86);
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.login-form p {
+  text-align: center;
+  font-size: 14px;
+}
+
+.reset-password-link {
+  cursor: pointer;
+}
+
+.reset-password-link:hover {
+  color: blue;
+}
+
+/* ============ Modal =============== */
+
+.modal {
+  position: absolute;
+  z-index: 5;
+  background-color: rgba(0, 0, 0, 1);
+  background-color: rgba(0, 0, 0, 0.4);
+  width: 100%;
+  top: 0;
+  left: 0;
+  height: 110vh;
+}
+
+.close-modal-btn {
+  cursor: pointer;
+  position: absolute;
+  top: 7.5px;
+  right: 10px;
+}
+
+/* ================ Register Form ================ */
+
+.register-container {
+  width: max-content;
+  margin: 0 auto;
+  margin-top: 175px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  position: relative;
+}
+
+.register-form {
+  margin-top: 10px;
+  width: 500px;
+}
+
+.register-form div label {
+  display: block;
+}
+
+.register-form div input {
+  border-radius: 2.5px;
+  padding: 5px;
+  width: 100%;
+}
+
+/* ================== Date of Birth ================= */
+
+.dob-container {
+  display: flex;
+  gap: 20px;
+  margin: 5px 0;
+}
+
+.dob-day-container select,
+.dob-month-container select,
+.dob-year-container select {
+  padding: 10px;
+  cursor: pointer;
+  background-color: white;
+  border: none;
+}
+
+/* =================== Gender ========================= */
+
+.gender-container {
+  display: flex;
+  gap: 20px;
+  margin: 5px 0;
+}
+
+.gender-option {
+  display: flex;
+  padding: 10px;
+  gap: 20px;
+  border: #526D82 solid 1px;
+  border-radius: 10px;
+}
+
+/* ============= Result Page ===================== */
+.result-page {
+  padding-top: 50px;
+}
+
+.result-details {
+  background-color: #3dabaf;
+  padding: 10px;
+}
+
+.result-actor-name {
+  display: inline;
 }
