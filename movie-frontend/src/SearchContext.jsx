@@ -7,6 +7,7 @@ function SearchProvider(props) {
   const [searchInput, setSearchInput] = useState("");
   const [allMovieData, setAllMovieData] = useState("");
   const [searchOutput, setSearchOutput] = useState("");
+  const [isResult, setIsResult] = useState(false);
   const navigate = useNavigate();
 
   function handleSearchInput(event) {
@@ -69,11 +70,13 @@ function SearchProvider(props) {
             }
           });
           setSearchOutput(filteredData);
+          setIsResult(true);
           navigate("/result");
           setSearchInput("");
         })
         .catch((err) => console.log(err));
     } else {
+      setIsResult(false);
       navigate("/result");
       setSearchOutput(`No movie with the title ${searchInput} found`);
     }
@@ -84,6 +87,7 @@ function SearchProvider(props) {
       value={{
         searchInput,
         searchOutput,
+        isResult,
         handleSearchInput,
         handleSearch,
       }}
