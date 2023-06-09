@@ -1,9 +1,12 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { LoginContext } from "../LoginContext";
+import { SearchContext } from "../SearchContext";
 
 export default function Header() {
   const { loginToken, setLoginToken } = useContext(LoginContext);
+  const { searchInput, handleSearchInput, handleSearch } =
+    useContext(SearchContext);
 
   function handleLogout() {
     setLoginToken((prevLoginToken) => {
@@ -25,8 +28,12 @@ export default function Header() {
         type="text"
         placeholder="Search Movie"
         className="movie-searchbar"
+        value={searchInput}
+        onChange={handleSearchInput}
       />
-      <button className="find-movie-btn">Search</button>
+      <button className="find-movie-btn" onClick={() => handleSearch()}>
+        Search
+      </button>
       <div className="navbar-container">
         <ul className="navbar-option">
           <li>
