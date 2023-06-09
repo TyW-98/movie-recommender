@@ -53,7 +53,7 @@ function SearchProvider(props) {
     console.log(matchingMovie);
 
     if (matchingMovie) {
-      fetch(`http://127.0.0.1:8000/api/movies/${matchingMovie.id}`, {
+      fetch(`http://127.0.0.1:8000/api/movies/${matchingMovie.id}/`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

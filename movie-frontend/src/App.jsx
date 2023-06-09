@@ -29,5 +29,3 @@ export default function App() {
     </Fragment>
   );
 }
-
-// TODO: Setup Cookies and logout
