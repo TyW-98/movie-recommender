@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "corsheaders",
-    "movieAPI_V2"
+    "movieAPI_V2",
 ]
 
 MIDDLEWARE = [
