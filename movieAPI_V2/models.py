@@ -108,7 +108,8 @@ class CustomUser(AbstractUser, PermissionsMixin):
     email = models.EmailField(max_length=100, unique=True, null=False)
     display_name = models.CharField(max_length=32, blank=False, unique=True)
     dob = models.DateField(
-        validators=[MaxValueValidator(timezone.localdate())] , default=timezone.localdate()
+        validators=[MaxValueValidator(timezone.localdate())],
+        default=timezone.localdate(),
     )
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True)
     country = models.CharField(max_length=200, blank=True)
@@ -118,8 +119,8 @@ class CustomUser(AbstractUser, PermissionsMixin):
     objects = CustomUserManager()
 
     USERNAME_FIELD = "username"
-    
-    REQUIRED_FIELDS = ['email', 'dob', 'display_name', 'gender', 'country']
+
+    REQUIRED_FIELDS = ["email", "dob", "display_name", "gender", "country"]
 
     class Meta:
         unique_together = ("username", "email")
