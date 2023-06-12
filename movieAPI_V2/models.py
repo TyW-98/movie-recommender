@@ -3,6 +3,7 @@ from datetime import date
 from django.contrib.auth.models import AbstractUser, BaseUserManager, PermissionsMixin
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from django.utils import timezone
 
 
 # Create your models here.
@@ -22,7 +23,7 @@ class Director(models.Model):
 
 class Movie(models.Model):
     title = models.CharField(max_length=255, blank=False)
-    released_year = models.IntegerField(max_length=4, default=date.today().year)
+    released_year = models.IntegerField(default=date.today().year)
     genre = models.CharField(max_length=32, blank=False)
     lanugage = models.CharField(max_length=32, default="-")
     duration = models.IntegerField(null=True)
@@ -99,44 +100,46 @@ class CustomUserManager(BaseUserManager):
             **other_fields,
         )
 
+
 class CustomUser(AbstractUser, PermissionsMixin):
-    GENDER_CHOICES = (
-        ("M", "male"),
-        ("F", "female"),
-        ("O", "other")
-    )
-    
-    
+    GENDER_CHOICES = (("M", "male"), ("F", "female"), ("O", "other"))
+
     username = models.CharField(max_length=32, unique=True)
     email = models.EmailField(max_length=100, unique=True, null=False)
     display_name = models.CharField(max_length=32, blank=False, unique=True)
-    dob = models.DateField(validators=[MaxValueValidator(date.today())], default=date.today())
+    dob = models.DateField(
+        validators=[MaxValueValidator(timezone.localdate())] , default=timezone.localdate()
+    )
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True)
     country = models.CharField(max_length=200, blank=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
-    
+
     objects = CustomUserManager()
-    
+
     USERNAME_FIELD = "username"
     
-    class Meta: 
+    REQUIRED_FIELDS = ['email', 'dob', 'display_name', 'gender', 'country']
+
+    class Meta:
         unique_together = ("username", "email")
-        
+
     def __str__(self):
         return self.display_name + f"({self.username})"
-    
-class RatedMovies(models.Model): 
+
+
+class RatedMovies(models.Model):
     movie = models.ForeignKey(Movie, blank=False, on_delete=models.CASCADE)
-    user = models.ForeignKey(CustomUser, blank= False, on_delete=models.CASCADE, related_name="ratedmovies")
-    user_rating = models.IntegerField(validators=[MinValueValidator[0], MaxValueValidator[5]], blank=False)
-    
-    
-    class Meta: 
+    user = models.ForeignKey(
+        CustomUser, blank=False, on_delete=models.CASCADE, related_name="ratedmovies"
+    )
+    user_rating = models.IntegerField(
+        validators=[MinValueValidator(0), MaxValueValidator(5)], blank=False
+    )
+
+    class Meta:
         unique_together = ("user", "movie")
         index_together = ("user", "movie")
-        
-    def __str__(self): 
+
+    def __str__(self):
         return f"{self.user.display_name} - {self.movie.title} ({self.user_rating})"
-    
-    

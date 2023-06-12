@@ -83,7 +83,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "moviebackend.wsgi.application"
 
-# AUTH_USER_MODEL = "movieAPI_V2.CustomUser"
+AUTH_USER_MODEL = "movieAPI_V2.CustomUser"
 
 
 # Database
