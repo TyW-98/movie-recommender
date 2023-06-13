@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework import status, viewsets
-from rest_framework.authentication import TokenAuthentication,
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
@@ -17,6 +17,7 @@ from .serializers import (
     MovieSerializer,
     RatedMovieSerializer,
 )
+
 
 # Create your views here.
 class BaseModelViewset(viewsets.ModelViewSet):
