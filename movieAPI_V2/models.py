@@ -25,7 +25,7 @@ class Movie(models.Model):
     title = models.CharField(max_length=255, blank=False)
     released_year = models.IntegerField(default=date.today().year)
     genre = models.CharField(max_length=32, blank=False)
-    lanugage = models.CharField(max_length=32, default="-")
+    language = models.CharField(max_length=32, default="-")
     duration = models.IntegerField(null=True)
     cast = models.ManyToManyField(Actor, related_name="movies")
     director = models.ForeignKey(
