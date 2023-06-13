@@ -27,7 +27,7 @@ class BaseModelViewset(viewsets.ModelViewSet):
         "movie": MovieDetailedSerializer,
         "director": DirectorDetailedSerializer,
         "actor": ActorDetailedSerializer,
-        "ratedmovie": RatedMovieSerializer
+        "ratedmovie": RatedMovieSerializer,
     }
     
     def retrieve(self, request, *args, **kwargs):
@@ -97,3 +97,53 @@ class MovieViewset(BaseModelViewset):
                 "Message": "Please include your rating"
             }
             return Response(response, status=status.HTTP_400_BAD_REQUEST)
+        
+class DirectorViewset(BaseModelViewset):
+    serializer_class = DirectorSerializer
+    queryset = Director.objects.all()
+    
+class ActorViewset(BaseModelViewset):
+    serializer_class = ActorSerializer
+    queryset = Actor.objects.all()
+    
+class RatedMoviesViewset(BaseModelViewset):
+    serializer_class = RatedMovieSerializer
+    queryset = RatedMovies.objects.all()
+
+class CustomUserviewset(viewsets.ModelViewSet):
+    serializer_class = CustomUserSerializer
+    queryset = CustomUser.objects.all()
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAdminUser,)
+    
+    def get_token(self):
+        permission_classes = (
+            [AllowAny]
+            if self.action == "create" or self.action == "user_rated_movies"
+            else [IsAdminUser]
+        )
+        
+        return [permission() for permission in permission_classes]
+    
+    def get_information(self):
+        user = self.request.user
+        if user.is_authenticated:
+            return CustomUser.objects.all()
+        return CustomUser.objects.filter(id=user.id)
+    
+    def retrieve(self, request, *args, **kwargs):
+        if request.user.is_staff:
+            instance = self.get_object()
+            serializer = CustomUserDetailedSerializer(instance)
+            return Response(serializer)
+        
+    @action(detail=False, methods=["GET"], permission_classes = [IsAuthenticated,])
+    def user_rated_movies(self, request):
+        user = request.user.id
+        user_data = RatedMovies.objects.filter(user=user)
+        serializer = RatedMovieSerializer(user_data, many= True)
+        response = {
+            "message": "Rated movies for the user",
+            "output": serializer.data,
+        }
+        return Response(response, status=status.HTTP_200_OK)
