@@ -44,6 +44,7 @@ class MovieDetailedSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "title",
+            "released_year",
             "genre",
             "MPAA_rating",
             "language",
