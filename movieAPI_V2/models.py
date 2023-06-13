@@ -33,7 +33,7 @@ class Movie(models.Model):
     )
     MPAA_rating = models.CharField(max_length=32, default="-")
     trailer_url = models.URLField(max_length=200)
-    poster_image_url = models.URLField(max_length=200)
+    poster_image_url = models.FileField(upload_to="movie_poster_image/")
 
     def __str__(self):
         return self.title + f" ({self.released_year})"
