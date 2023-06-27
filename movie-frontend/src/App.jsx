@@ -8,6 +8,7 @@ import LoginForm from "./components/LoginForm";
 import SearchPage from "./components/SearchResultPage";
 import { LoginProvider } from "./LoginContext";
 import { SearchProvider } from "./SearchContext";
+import Footebar from "./components/Footerbar";
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
                 <Route path="/result" element={<SearchPage />} />
               </Routes>
             </div>
+            <Footebar />
           </SearchProvider>
         </LoginProvider>
       </Router>
