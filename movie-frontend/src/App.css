@@ -279,3 +279,43 @@
 .result-actor-name {
   display: inline;
 }
+
+/* ============= Footer Bar ===================== */
+.footer-container {
+  background-color: #27374D;
+  padding: 25px 0;
+  color: white;
+  text-align: center;
+}
+
+.footer-socialicons {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  width: max-content;
+  margin: 0 auto 10px;
+}
+
+.social-icons {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.social-icons:hover {
+  animation: jump 0.75s infinite;
+}
+
+@keyframes jump {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
